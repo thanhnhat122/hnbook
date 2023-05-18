@@ -1,0 +1,7 @@
+.box {
+    width: fit-content;
+    float: right;
+    height: 80vw;
+    overflow-y: auto;
+    /* overflow: scroll; */
+}

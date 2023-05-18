@@ -1,0 +1,267 @@
+<app-header></app-header>
+<div class=" h-100 d-flex align-items-center justify-content-center background-color">
+    <nav class="navbar navbar-expand-lg">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active booktype-title " aria-current="page">{{authorId}}</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<!--Filter-->
+<div class="container" style="margin-left: 30px; margin-right: 30px">
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <div class="col-10 my-border rounded" style="background-color:rgb(171, 210, 248)">
+                    <p class="filter-text" style="font-weight: bold; font-size: 20px;"> Lọc theo </p>
+                    <p class="filter-text" style="font-weight: bold; font-size: 15px;"> Giá </p>
+                    <button (click)="price100000()" class="rounded-pill filter-margin" style="font-size: 12px;">Dưới 100.000</button> <br>
+                    <button (click)="priceto100000from200000()" class="rounded-pill filter-margin" style="font-size: 12px;">100.000 -> 200.000</button> <br>
+                    <button (click)="priceGreater200000()"class="rounded-pill filter-margin" style="font-size: 12px;">Trên 200.000</button> <br>
+                    <form #price="ngForm" (ngSubmit) = "priceEnter(price)">
+                        <p class="filter-text"> Từ </p>
+                      <input type="number" ngModel name="minPrice" id="minPrice" class="form-control form-rounded filter-margin input-size" placeholder="0"
+                          size="5">
+                      <p class="filter-text">Đến</p>
+                      <input type="number" ngModel name="maxPrice" id="maxPrice" class="form-control form-rounded filter-margin input-size" placeholder="0"
+                          size="5">
+                      <div class="text-center">
+                          <button type="submit" class="btn btn-outline-primary" style="margin-top: 5px; padding-left: 15px; padding-right: 15px;">Áp dụng</button>
+                      </div>
+                    </form>
+
+                    <hr class="solid" style="color:white">
+
+                    <form #year="ngForm" (ngSubmit) = "yearEnter(year)">
+                    <p class="filter-text" style="font-weight: bold; font-size: 15px;">Năm xuất bản</p>
+                    <input type="number" ngModel name="publicationYear" id="publicationYear" class="form-control form-rounded filter-margin input-size" placeholder="2022"
+                        size="5">
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-outline-primary" style="margin-top: 5px; padding-left: 15px; padding-right: 15px;" > Áp dụng </button>
+                    </div>
+                    </form>
+
+                    <hr class="solid" style="color:white">
+
+                    <p class="filter-text" style="font-weight: bold; font-size: 15px;"> Nhà xuất bản </p>
+                    <div class="scrollbar" id="style-7">
+                      <div *ngFor="let publisher of publishers">
+                        <div class="form-check">
+                          <input (change)="checkPublisher(publisher.id)" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                          <label class="form-check-label filter-text" for="flexCheckDefault">
+                              {{publisher.name}}
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div *ngFor="let publisher of publishers">
+                      <div class="form-check">
+                        <input (change)="checkPublisher(publisher.id)" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label filter-text" for="flexCheckDefault">
+                            {{publisher.name}}
+                        </label>
+                      </div>
+                    </div> -->
+
+                    <hr class="solid" style="color:white">
+
+
+                    <p class="filter-text" style="font-weight: bold; font-size: 15px;">Tác giả</p>
+                    <div class="scrollbar" id="style-7">
+                      <div *ngFor="let author of authors">
+                        <div class="form-check">
+                          <input (change)="checkAuthor(author.id)" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                          <label class="form-check-label filter-text" for="flexCheckDefault">
+                              {{author.firstName}}
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div *ngFor="let author of authors">
+                      <div class="form-check">
+                        <input (change)="checkAuthor(author.id)" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label filter-text" for="flexCheckDefault">
+                            {{author.firstName}}
+                        </label>
+                      </div>
+                    </div> -->
+
+                    <hr class="solid" style="color:white">
+
+                    <p class="filter-text" style="font-weight: bold; font-size: 15px;">Loại bìa</p>
+                    <div class="form-check">
+                      <input (change)="checkType('Bia_Cung')" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                      <label class="form-check-label filter-text" for="flexRadioDefault1">
+                        Bìa cứng
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input (change)="checkType('Bia_Mem')" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                      <label class="form-check-label filter-text" for="flexRadioDefault2">
+                        Bìa mềm
+                      </label>
+                    </div>
+
+                </div>
+                <!--End of col-xs-12 col-md-3 -->
+            </div>
+
+            <div class="col-8">
+                <div class="row row-cols-3">
+                    <!-- book display-->
+                    <tr *ngFor="let book of books">
+                        <div class="col" style="margin-top: 15px;">
+                          <div class="card" style="width: 250px; height: 380px;" routerLink="/customer-book-details/{{book.id}}">
+                            <div class="card-body" style="margin-left: 2px; margin-right: 2px;">
+                              <img class="img-fluid" src={{book.image}}>
+                              <div class="card-title text fw-bold multi-line"> {{book.title}} </div>
+                              <div class="d-flex justify-content-start">
+                                <div class="rating" *ngIf="book.totalRate > 4.5; else rating45">
+                                  <i class="fa-solid fa-star star"></i>
+                                  <i class="fa-solid fa-star star"></i>
+                                  <i class="fa-solid fa-star star"></i>
+                                  <i class="fa-solid fa-star star"></i>
+                                  <i class="fa-solid fa-star star"></i>
+                                </div>
+
+                                <ng-template #rating45>
+                                  <div class="rating" *ngIf="book.totalRate > 4; else rating4">
+                                    <i class="fa-solid fa-star star"></i>
+                                    <i class="fa-solid fa-star star"></i>
+                                    <i class="fa-solid fa-star star"></i>
+                                    <i class="fa-solid fa-star star"></i>
+                                    <i class="fa-solid fa-star-half-stroke star"></i>
+                                  </div>
+                                </ng-template>
+
+                                <ng-template #rating4>
+                                  <div class="rating" *ngIf="book.totalRate > 3.5; else rating35">
+                                    <i class="fa-solid fa-star star"></i>
+                                    <i class="fa-solid fa-star star"></i>
+                                    <i class="fa-solid fa-star star"></i>
+                                    <i class="fa-solid fa-star star"></i>
+                                    <i class="fa-regular fa-star star"></i>
+                                  </div>
+                                </ng-template>
+
+                                <ng-template #rating35>
+                                  <div class="rating" *ngIf="book.totalRate > 3; else rating3">
+                                    <i class="fa-solid fa-star star"></i>
+                                    <i class="fa-solid fa-star star"></i>
+                                    <i class="fa-solid fa-star star"></i>
+                                    <i class="fa-solid fa-star-half-stroke star"></i>
+                                    <i class="fa-regular fa-star star"></i>
+                                  </div>
+                                </ng-template>
+
+                                <ng-template #rating3>
+                                  <div class="rating" *ngIf="book.totalRate > 2.5; else rating25">
+                                    <i class="fa-solid fa-star star"></i>
+                                    <i class="fa-solid fa-star star"></i>
+                                    <i class="fa-solid fa-star star"></i>
+                                    <i class="fa-regular fa-star star"></i>
+                                    <i class="fa-regular fa-star star"></i>
+                                  </div>
+                                </ng-template>
+
+                                <ng-template #rating25>
+                                  <div class="rating" *ngIf="book.totalRate > 2; else rating2">
+                                    <i class="fa-solid fa-star star"></i>
+                                    <i class="fa-solid fa-star star"></i>
+                                    <i class="fa-solid fa-star-half-stroke star"></i>
+                                    <i class="fa-regular fa-star star"></i>
+                                    <i class="fa-regular fa-star star"></i>
+                                  </div>
+                                </ng-template>
+
+                                <ng-template #rating2>
+                                  <div class="rating" *ngIf="book.totalRate > 1.5; else rating15">
+                                    <i class="fa-solid fa-star star"></i>
+                                    <i class="fa-solid fa-star star"></i>
+                                    <i class="fa-regular fa-star star"></i>
+                                    <i class="fa-regular fa-star star"></i>
+                                    <i class="fa-regular fa-star star"></i>
+                                  </div>
+                                </ng-template>
+
+                                <ng-template #rating15>
+                                  <div class="rating" *ngIf="book.totalRate > 1; else rating1">
+                                    <i class="fa-solid fa-star star"></i>
+                                    <i class="fa-solid fa-star-half-stroke star"></i>
+                                    <i class="fa-regular fa-star star"></i>
+                                    <i class="fa-regular fa-star star"></i>
+                                    <i class="fa-regular fa-star star"></i>
+                                  </div>
+                                </ng-template>
+
+                                <ng-template #rating1>
+                                  <div class="rating" *ngIf="book.totalRate > 0; else rating0">
+                                    <i class="fa-solid fa-star star"></i>
+                                    <i class="fa-regular fa-star star"></i>
+                                    <i class="fa-regular fa-star star"></i>
+                                    <i class="fa-regular fa-star star"></i>
+                                    <i class="fa-regular fa-star star"></i>
+                                  </div>
+                                </ng-template>
+
+                                <ng-template #rating0>
+                                  <div class="rating">
+                                    <i class="fa-regular fa-star star"></i>
+                                    <i class="fa-regular fa-star star"></i>
+                                    <i class="fa-regular fa-star star"></i>
+                                    <i class="fa-regular fa-star star"></i>
+                                    <i class="fa-regular fa-star star"></i>
+                                  </div>
+                                </ng-template>
+
+                                <div class="text fw-bold" style="margin-left: 10px; color: rgb(237, 164, 30)"> ({{book.ratingNumber}}) </div>
+                              </div>
+
+                              <div class="d-flex justify-content-between align-items-end">
+                                  <div class="text fw-bold fs-5" style="color: rgb(223, 11, 53);"> {{book.price}} <u> đ </u> </div>
+                                  <div class="text-label fs-6"> Đã bán {{book.sell}} </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </tr>
+
+                    <!-- <tr *ngFor="let book of books">
+                        <div class="col" style="margin-top: 15px;">
+                            <div class="card" style="width: 15rem; height: 25rem;"
+                                routerLink="/customer-book-details/{{book.id}}">
+                                <img src={{book.image}} class="card-img-top">
+                                <div class="card-body">
+                                    <h5 class="card-title book-title">{{book.title}}</h5>
+                                    <p class="price-font">{{book.price}} ₫</p>
+                                </div>
+                            </div>
+                        </div>
+                    </tr> -->
+                </div>
+
+                <ul class="pagination justify-content-end mt-5">
+                  <li class="page-item disabled">
+                    <a class="page-link" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+
+                  <div *ngFor = "let bookPageNo of bookPageNumber">
+                    <li (click)="pagingBook(bookPageNo)" class="page-item"> <a class="page-link"> {{bookPageNo}} </a> </li>
+                  </div>
+
+                  <li class="page-item disabled">
+                    <a class="page-link" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

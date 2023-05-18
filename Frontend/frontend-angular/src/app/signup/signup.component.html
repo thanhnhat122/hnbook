@@ -1,0 +1,135 @@
+<!-- <div class="container">
+  <div class="card" style="padding: 12%;">
+    <form #signupForm="ngForm" (ngSubmit) = "signup(signupForm)">
+      <div class="input-group mb-3">
+        <span class="input-group-text" style="width: 100px" >Email</span>
+        <input type="email" class="form-control" ngModel name="email" id="email" placeholder="Nhập email">
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" style="width: 100px"  >Mật khẩu</span>
+        <input type="password" class="form-control" ngModel name="password" id="password" placeholder="Nhập mật khẩu">
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" style="width: 100px"  >Họ</span>
+        <input type="text" class="form-control me-2" ngModel name="lastName" id="lastName" placeholder="Họ">
+
+        <span class="input-group-text" style="width: 100px"  >Tên</span>
+        <input type="text" class="form-control " ngModel name="firstName" id="firstName" placeholder="Tên">
+
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" style="width: 100px" >Địa chỉ</span>
+        <input type="text" class="form-control" ngModel name="address" id="address" placeholder="Nhập địa chỉ">
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text" style="width: 100px"  >Tỉnh</span>
+        <input type="text" class="form-control" ngModel name="province" id="province" placeholder="Nhập tỉnh / thành phố">
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text" style="width: 100px" >SĐT</span>
+        <input type="text" class="form-control" ngModel name="phone" id="phone" placeholder="Nhập số điện thoại">
+      </div>
+      <div class="text-center">
+        <button class ="btn btn-warning " type="submit">Đăng ký</button>
+      </div>
+
+
+    </form>
+
+  </div>
+
+</div> -->
+<section class="vh-100 gradient-custom">
+  <div class="container-fluid">
+    <div class="row bg-primary header">
+      <div class="col-2 d-flex align-items-center">
+        <a class="home-logo" routerLink="/home"> HNLBOOK </a>
+      </div>
+  
+      <div class="col-2 d-flex align-items-center">
+        <div class="title" style="color: white"> Đăng ký </div>
+      </div>
+    </div>
+    
+    <div class="row justify-content-center align-items-center mt-3">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body" style="padding: 30px 30px 20px 30px;">
+            <p class="fs-4 fw-bold"> Đăng ký tài khoản </p>
+            <form #signupForm="ngForm" (ngSubmit) = "signup(signupForm)">
+              <div class="row">
+                <div class="col-md-12 mb-4">
+                  <div class="form-outline">
+                    <input type="email" class="form-control form-control-lg" ngModel name="email" id="email" placeholder="Email">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12 mb-4">
+                  <div class="form-outline">
+                    <input type="password" class="form-control form-control-lg" ngModel name="password" id="password" placeholder="Mật khẩu">
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    <input type="text" class="form-control form-control-lg" ngModel name="lastName" id="lastName" placeholder="Họ">
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    <input type="text" class="form-control form-control-lg" ngModel name="firstName" id="firstName" placeholder="Tên">
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12 mb-4">
+                  <div class="form-outline">
+                    <input type="text" class="form-control form-control-lg" ngModel name="address" id="address" placeholder="Địa chỉ">
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-md-12 mb-4">
+                  <div class="form-outline">
+                    <input type="text" class="form-control form-control-lg" ngModel name="province" id="province" placeholder="Tỉnh / thành phố">
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-md-12 mb-4">
+                  <div class="form-outline">
+                    <input type="text" class="form-control form-control-lg" ngModel name="phone" id="phone" placeholder="Số điện thoại">
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-2 d-flex justify-content-center">
+                <input class="btn btn-primary btn-lg" style="padding-right: 80px; padding-left: 80px" type="submit" value="Đăng ký" />
+              </div>
+
+              <p class="small fw-bold mt-3 pt-1 mb-0 text-center"> Bạn đã có tài khoản? 
+                <a class="link-danger no-underline" routerLink="/login"> Đăng nhập </a>
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,146 @@
+@charset "utf-8";
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css);
+
+.custom-background {
+    background-color: rgb(243, 243, 243); 
+    width: 100%; 
+    position: absolute; 
+    min-height: 100%; 
+    height: auto;
+  }
+
+.card {
+    margin: 20px 45px 0px 45px;
+    padding: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border: transparent;
+    border-radius: 1rem;
+}
+
+.currency {
+    color: rgb(254, 56, 52);
+}
+
+.image-center {
+    margin: auto;
+    display: block;
+}
+
+.child {
+    display: inline-block;
+}
+
+.no-underline {
+    text-decoration: none;
+}
+
+.no-underline:hover {
+    text-decoration: underline;
+}
+
+.no-underline-0 {
+    text-decoration: none;
+}
+
+.text-secondary {
+    color: gray;
+}
+
+.rating {
+    color: orange;
+}
+
+.star {
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+.big-star {
+    font-size: 30px;
+    margin-left: 10px;
+}
+
+.medium-star {
+    font-size: 14px;
+    margin-left: 4px;
+}
+
+.small-star {
+    font-size: 11px;
+    margin-left: 2px;
+}
+
+.progress {
+    height: 12px;
+    width: 400px;
+    margin-top: 8px;
+}
+
+.list-group-horizontal {
+    overflow-y:auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.list-group-item {
+    border-radius: 0.5rem;
+    border-width: 1px;
+}
+
+.list-group-item-image {
+    margin-left: 5px; 
+    margin-right: 5px;
+    border-color: white;
+}
+
+.list-group-item-image:hover {
+    border-color: rgb(22, 122, 221);
+}
+
+.list-group-item-book {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 180px;
+    height: 260px;
+    border-width: 0; 
+}
+
+.list-group-item-book:hover {
+    box-shadow: 4px 6px 6px 4px rgba(0, 0, 0, 0.19);
+    border: transparent;
+    margin-top: 7px;
+    margin-bottom: 13px;
+    filter: brightness(105%);
+}
+
+.quantity-button {
+    color: rgb(178, 176, 176);
+}
+
+.quantity-button:hover {
+    color: gray;
+}
+
+.cursor-pointer {
+    cursor:pointer;
+}
+
+.multi-line {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}

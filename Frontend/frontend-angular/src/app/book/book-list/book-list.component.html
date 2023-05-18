@@ -1,0 +1,180 @@
+<div class="container">
+  <h2 class="text-center"> Danh sách sách </h2>
+  <!-- <button type="button" class="btn btn-success col-md-3 offset-md-9 mt-3" routerLink="/create-book"> Thêm sách </button> -->
+  <button type="button" class="btn btn-outline-success col-md-3 offset-md-9 mt-3 border-2 fw-bold" data-bs-toggle="modal"
+  data-bs-target="#addBookModal" style="padding: 10px 30px 10px 30px"> Thêm sách </button>
+  <div class="modal fade" id="addBookModal" tabindex="-1" aria-labelledby="rateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rateModalLabel"> Thêm sách </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form >
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <div class="form-outline">
+                      <label> Tác giả: </label>
+                      <select class="select form-control" (change)="updateAuthorId($event)">
+                        <option *ngFor="let author of authors" [value]="author.id">{{author.firstName}}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="form-outline">
+                      <label> Nhà xuất bản: </label>
+                      <select class="select form-control" (change)="updatePublisherId($event)">
+                        <option *ngFor="let publisher of publishers" [value]="publisher.id">{{publisher.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12 mb-3">
+                    <div class="form-outline">
+                      <input type="text" class="form-control" [(ngModel)]="book1.title" name="title" id="title" placeholder="Nhập tựa sách">
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12 mb-3">
+                    <div class="form-outline">
+                      <input type="text" class="form-control" [(ngModel)]="book1.isbn" name="isbn" id="isbn" placeholder="Nhập isbn">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12 mb-3">
+                    <div class="form-outline">
+                      <label> Thể loại: </label>
+                      <select class="select form-control"  (change)="updateGenre($event)">
+                        <option value="Sach_Giao_Khoa">Sách giáo khoa</option>
+                        <option value="Ky_Nang_Song">Kỹ năng sống</option>
+                        <option value="Tieu_Thuyet">Tiểu thuyết</option>
+                        <option value="Light_Novel">Light Novel</option>
+                        <option value="Manga">Manga</option>
+                        <option value="Kinh_Te">Kinh tế</option>
+                        <option value="Tu_Dien">Từ điển</option>
+                      </select>
+                      <!-- <input type="text" class="form-control" [(ngModel)]="book1.genre" name="genre" id="genre" placeholder="Nhập thể loại"> -->
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12 mb-3">
+                    <div class="form-outline">
+                      <!-- <input type="text" class="form-control" [(ngModel)]="book1.type" name="type" id="type" placeholder="Nhập loại bìa"> -->
+                      <label> Bìa: </label>
+                      <select class="select form-control"  (change)="updateType($event)">
+                        <option value="Bia_Mem">Bìa mềm</option>
+                        <option value="Bia_Cung">Bìa cứng</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12 mb-3">
+                    <div class="form-outline">
+                      <input type="text" class="form-control" [(ngModel)]="book1.publicationYear" name="publicationYear" id="publicationYear" placeholder="Nhập năm xuất bản">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <div class="form-outline">
+                      <input type="text" class="form-control" [(ngModel)]="book1.price" name="price" id="price" placeholder="Nhập giá">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="form-outline">
+                      <input type="text" class="form-control" [(ngModel)]="book1.remain" name="remain" id="remain" placeholder="Nhập số lượng">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <div class="form-outline">
+                      <input type="text" class="form-control" [(ngModel)]="book1.size" name="size" id="size" placeholder="Nhập kích thước">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="form-outline">
+                      <input type="text" class="form-control" [(ngModel)]="book1.pageNumber" name="pageNumber" id="pageNumber" placeholder="Nhập số trang">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12 mb-3">
+                    <div class="form-outline">
+                    <input type="file" class="form-control" name="image" id="image" (change)="onFileSelected($event)" name="image">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12 mb-3">
+                  <div class="form-outline">
+                    <textarea class="form-control" rows="5" [(ngModel)]="book1.description" name="description" id="description" placeholder="Nhập mô tả"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              </form>
+
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button (click)="saveBook()" type="button" class="btn btn-primary"
+                    style="width: 180px" data-bs-dismiss="modal"> Thêm </button>
+                <button type="button" class="btn btn-secondary" style="width: 180px"
+                    data-bs-dismiss="modal"> Đóng </button>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <table class = "table table-striped table-hover">
+    <thead>
+        <tr>
+            <th> Tựa </th>
+            <th> Thể loại </th>
+            <th> Năm xuất bản </th>
+            <th> Giá </th>
+            <th> Còn lại </th>
+            <th> Hình </th>
+            <th> Chức năng </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor = "let book of books">
+            <td> {{ book.title }} </td>
+            <td> {{ book.genre}} </td>
+            <td> {{ book.publicationYear }} </td>
+            <td> {{ book.price }} </td>
+            <td> {{ book.remain }} </td>
+            <td> <img src={{book.image}} style="width:128px;height:128px;"> </td>
+            <td>
+              <div class="btn-group">
+                <button (click)="bookDetails(book.id)" class = "btn btn-info" style = "margin-left: 10px"> Xem </button>
+                <button (click)="updateBook(book.id)" class = "btn btn-warning" style = "margin-left: 10px"> Cập nhật </button>
+                <button (click)="deleteBook(book.id)" class = "btn btn-danger" style = "margin-left: 10px"> Xóa </button>
+              </div>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+</div>

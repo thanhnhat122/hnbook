@@ -1,0 +1,61 @@
+<nav class="row navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="row container-fluid">
+    <div class="col-lg-2" >
+      <div class="logo_container">
+        <div class="logo"><a style="cursor: pointer;" routerLink="/home">HNLBOOK</a></div>
+      </div>
+    </div>
+    <div class="col-lg-2" >
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active mt-1" aria-current="page" style="font-size: 25px; cursor: pointer;" routerLink="/home"> Trang chủ </a>
+        </li>
+        <li class="nav-item">
+          <a *ngIf="userService.roleMatch('ROLE_AD')" class="nav-link active" aria-current="page" routerLink="/admin"><h4>Admin</h4></a>
+        </li>
+        <li class="nav-item">
+          <a *ngIf="userService.roleMatch('ROLE_NV')" class="nav-link active" aria-current="page" routerLink="/staff"><h4>Nhân viên</h4></a>
+        </li>
+      </ul>
+    </div>
+
+      <!-- Search -->
+			<div class="col-lg-3 text-lg-left text-right">
+						<div class="header_search">
+							<div class="header_search_content">
+								<div class="header_search_form_container">
+									<form (submit)="searchForm()" class="header_search_form clearfix">
+										<input  (keyup)="onKey($event)" type="search" required="required" class="header_search_input" placeholder="Tìm sản phẩm...">
+										<button type="submit" class="header_search_button trans_300" value="Submit"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918770/search.png" alt=""></button>
+									</form>
+								</div>
+							</div>
+						</div>
+			</div>
+
+      <div class="col-lg-2" >
+        <div *ngIf="isCustomer()">
+          <div class="cart">
+            <div class="cart_container d-flex flex-row align-items-center justify-content-end">
+              <div class="cart_icon">
+                <!-- <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918704/cart.png" style="color: white;" width="30" alt=""> -->
+                <i class="fa fa-shopping-cart" style="font-size:30px;color:rgb(255, 255, 255)"></i>
+                <div class="cart_count"><span class="fw-bold" style="color: black">{{number}}</span></div>
+              </div>
+              <div class="cart_content">
+                <div class="cart_text"><a routerLink="/cart-detail" style="color: white;">Giỏ hàng</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 ms-3" >
+        <a *ngIf="isCustomer()"  style="margin-right: 10px; color: white; text-decoration: none; cursor: pointer;" (click)="goToUserDetail()">
+          <img class="me-1" src="https://cdn-icons-png.flaticon.com/512/847/847969.png" width="35"> <label class="me-1 mt-2" style="font-size: 18; font-weight: 400; cursor: pointer"> {{userName}} </label>
+        </a>
+        <button *ngIf="! isLoggedIn()" type="button" class ="btn btn-success btn-rounded"   routerLink="/login"><h4>Đăng nhập</h4></button>
+        <button *ngIf="isLoggedIn()" type="button" class ="btn btn-danger btn-rounded"  (click)="logout()"><h4>Đăng xuất</h4></button>
+      </div>
+  </div>
+</nav>

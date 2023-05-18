@@ -1,0 +1,26 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css);
+
+.rating {
+    color : orange;
+}
+
+.star {
+    font-size : 20px;
+    margin-right: 3px;
+}
+
+.big-star {
+    font-size : 30px;
+    margin-right: 5px;
+}
+
+.text-secondary {
+    color: gray;
+}
+
+.multi-line {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}

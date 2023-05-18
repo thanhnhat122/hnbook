@@ -1,0 +1,103 @@
+<div class="custom-background">
+  <app-header></app-header>
+
+  <div class="container" *ngIf="orderItems != null; else noItemCart">
+    <div class="row d-flex justify-content-center my-4 ">
+      <div class="card col-8 me-2">
+        <div class="title mt-3 mb-3 ms-4"> GIỎ HÀNG </div>
+
+        <div class="row">
+          <div class="row align-items-center mb-1">
+            <div class="col-md-2 col-lg-2 col-xl-2 text-center"> Sản Phẩm </div>
+
+            <div class="col-md-3 col-lg-3 col-xl-3"> </div>
+
+            <div class="col-md-2 col-lg-2 col-xl-2 text-center"> Đơn Giá </div>
+
+            <div class="col-md-2 col-lg-2 col-xl-2 text-center"> Số Lượng </div>
+
+            <div class="col-md-2 col-lg-2 col-xl-2 text-center"> Thành Tiền </div>
+
+            <div class="col-md-1 col-lg-1 col-xl-1 text-center"> <i class="fa-solid fa-trash"></i> </div>
+            
+          </div>
+        </div>
+        
+        <div *ngFor="let orderItem of orderItems">
+          <div class="row border-top">
+            <div class="row align-items-center">
+              <div class="col-md-2 col-lg-2 col-xl-2">
+                <img class="img-fluid p-3" src={{orderItem.book.image}}>
+              </div>
+
+              <div class="col-md-3 col-lg-3 col-xl-3">
+                <!-- <div class="row text-muted">{{orderItem.book.genre}}</div> -->
+                <div class="multi-line"> {{orderItem.book.title}} </div>
+              </div>
+
+              <div class="col-md-2 col-lg-2 col-xl-2 fw-bold d-flex justify-content-center"> {{orderItem.book.stringPrice}} <u class="ms-1"> đ </u> </div>
+
+              <div class="col-md-2 col-lg-2 col-xl-2 d-flex justify-content-center">
+                <i (click)="reduce(orderItem.id, orderItem.book.id, orderItem.quantity)" class="fa-solid fa-square-minus quantity-button"> </i>
+
+                <input type="number" id="form1" min="0" name="quantity" [(ngModel)]="orderItem.quantity" 
+                  (change)="checkValidQuantity(orderItem.id, orderItem.book.id, orderItem.quantity)"  class="form-control form-control-sm text-center" />
+
+                <i (click)="increase(orderItem.id, orderItem.book.id, orderItem.quantity)" class="fa-solid fa-square-plus quantity-button"></i>
+              </div>
+
+              <div class="col-md-2 col-lg-2 col-xl-2 fw-bold d-flex justify-content-center currency"> {{orderItem.sTotalPrice}} <u class="ms-1"> đ </u> </div>
+
+              <div class="col-md-1 col-lg-1 col-xl-1 d-flex justify-content-center"> 
+                <i (click)="delete(orderItem)" class="fa-solid fa-trash delete-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-3 ms-2">
+        <div class="card mb-2 px-3 py-3">
+          <div class="mb-1"> Giao tới </div>
+
+          <div class="d-flex">
+            <div class="fw-bold"> {{order.user.lastName}} {{order.user.firstName}} </div>
+            <div class="ms-2 me-2" style="color: rgb(174, 169, 169);"> | </div>
+            <div class="fw-bold"> {{order.user.phone}} </div>
+          </div>
+
+          <div class="text-secondary"> {{order.user.address}}, {{order.user.province}} </div>
+        </div>
+
+        <div class="card px-3 py-3">
+          <div class="d-flex justify-content-between mb-2">
+            <div class="fs-6"> Tổng tiền hàng </div>
+            <div class="fs-6"> {{order.sTotalPrice}} <u> đ </u> </div>
+          </div>
+
+          <div class="d-flex justify-content-between mb-2">
+            <div class="fs-6"> Phí vận chuyển </div>
+            <div class="fs-6"> Miễn phí </div>
+          </div>
+
+          <hr>
+
+          <div class="d-flex justify-content-between mb-4">
+            <div class="fs-6"> Tổng tiền </div>
+            <h5 class="fw-bold currency"> {{order.sTotalPrice}} <u> đ </u> </h5>
+          </div>
+
+          <button type="button" class="btn btn-danger" style="width:100%" (click)="orderOrder(order)"> Đặt Hàng ({{orderItems.length}})</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noItemCart>
+    <div class="row d-flex justify-content-center"> 
+      <i class="fa-sharp fa-solid fa-cart-circle-xmark" style="font-size: 100px; color: red; margin-top: 15%;"></i>
+      <div class="text-center fw-bold my-2"> Không có sản phẩm nào trong giỏ hàng của bạn </div>
+      <button class="btn btn-primary my-2 btn-lg col-2" routerLink="/home"> Tiếp tục mua sắm </button>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="card" style="padding: 12%;">
+      <form  (ngSubmit) = "onSubmit()">
+        <div class="input-group mb-3">
+          <span class="input-group-text" style="width: 100px" >Email</span>
+          <input type="email" class="form-control" [(ngModel)] = "user.email" name="email" id="email" placeholder="Nhập email">
+        </div>
+        
+        <div class="input-group mb-3">
+          <span class="input-group-text" style="width: 100px"  >Mật khẩu</span>
+          <input type="password" class="form-control" [(ngModel)] = "user.password" name="password" id="password" placeholder="Nhập mật khẩu">
+        </div>
+  
+        <div class="input-group mb-3">
+          <span class="input-group-text" style="width: 100px"  >Họ</span>
+          <input type="text" class="form-control me-2" [(ngModel)] = "user.lastName" name="lastName" id="lastName" placeholder="Họ">
+  
+          <span class="input-group-text" style="width: 100px"  >Tên</span>
+          <input type="text" class="form-control " [(ngModel)] = "user.firstName" name="firstName" id="firstName" placeholder="Tên">
+  
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" style="width: 100px" >Địa chỉ</span>
+          <input type="text" class="form-control" [(ngModel)] = "user.address" name="address" id="address" placeholder="Nhập địa chỉ">
+        </div>
+  
+        <div class="input-group mb-3">
+          <span class="input-group-text" style="width: 100px"  >Tỉnh</span>
+          <input type="text" class="form-control" [(ngModel)] = "user.province" name="province" id="province" placeholder="Nhập tỉnh / thành phố">
+        </div>
+  
+        <div class="input-group mb-3">
+          <span class="input-group-text" style="width: 100px" >SĐT</span>
+          <input type="text" class="form-control" [(ngModel)] = "user.phone" name="phone" id="phone" placeholder="Nhập số điện thoại">
+        </div>
+  
+        <div class="text-center">
+          <button class ="btn btn-warning " type="submit">Cập nhật</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

@@ -1,0 +1,780 @@
+<div class="custom-background" style="padding-bottom: 20px;" id="top">
+  <app-header></app-header>
+
+  <div class="container">
+
+    <!-- Book -->
+
+    <div class="card">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-5">
+            <img class="image-center" style="padding: 10px; width: 450px;" src={{mainImage}}>
+
+            <ul class="list-group list-group-horizontal">
+              <div *ngFor="let image of book.imageArray">
+                <li (click)="changeImage(image)" class="list-group-item list-group-item-image cursor-pointer" style="width: fit-content; padding: 2px; margin-left: 5px; margin-right: 5px;">
+                  <img style="width: 75px; height: 75px;" src={{image}}>
+                </li>
+              </div>
+            </ul>
+          </div>
+
+          <div class="col-7">
+            <div class="mt-2 d-flex">
+              <!-- Tác giả: <a class="no-underline" routerLink="/author/{{book.authorId}}"> {{book.author.lastName}} {{book.author.firstName}} </a> -->
+              <div class="text-secondary"> Tác giả: </div> 
+              <div class="ms-1"> {{book.author.lastName}} {{book.author.firstName}} </div>
+            </div>
+
+            <h4 class="mt-2"> {{book.title}} </h4>
+
+            <div class="d-flex justify-content-start">
+              <a class="me-1 no-underline" style="color : orange; margin-top: 1px;" href="http://localhost:4200/customer-book-details/{{book.id}}#rating_card"> {{avgRating}} </a>
+
+              <div class="rating" *ngIf="avgRating > 4.5; else smallRating45">
+                <i class="fa-solid fa-star medium-star"></i>
+                <i class="fa-solid fa-star medium-star"></i>
+                <i class="fa-solid fa-star medium-star"></i>
+                <i class="fa-solid fa-star medium-star"></i>
+                <i class="fa-solid fa-star medium-star"></i>
+              </div>
+
+              <ng-template #smallRating45>
+                <div class="rating" *ngIf="avgRating > 4; else smallRating4">
+                  <i class="fa-solid fa-star medium-star"></i>
+                  <i class="fa-solid fa-star medium-star"></i>
+                  <i class="fa-solid fa-star medium-star"></i>
+                  <i class="fa-solid fa-star medium-star"></i>
+                  <i class="fa-solid fa-star-half-stroke medium-star"></i>
+                </div>
+              </ng-template>
+
+              <ng-template #smallRating4>
+                <div class="rating" *ngIf="avgRating > 3.5; else smallRating35">
+                  <i class="fa-solid fa-star medium-star"></i>
+                  <i class="fa-solid fa-star medium-star"></i>
+                  <i class="fa-solid fa-star medium-star"></i>
+                  <i class="fa-solid fa-star medium-star"></i>
+                  <i class="fa-regular fa-star medium-star"></i>
+                </div>
+              </ng-template>
+
+              <ng-template #smallRating35>
+                <div class="rating" *ngIf="avgRating > 3; else smallRating3">
+                  <i class="fa-solid fa-star medium-star"></i>
+                  <i class="fa-solid fa-star medium-star"></i>
+                  <i class="fa-solid fa-star medium-star"></i>
+                  <i class="fa-solid fa-star-half-stroke medium-star"></i>
+                  <i class="fa-regular fa-star medium-star"></i>
+                </div>
+              </ng-template>
+
+              <ng-template #smallRating3>
+                <div class="rating" *ngIf="avgRating > 2.5; else smallRating25">
+                  <i class="fa-solid fa-star medium-star"></i>
+                  <i class="fa-solid fa-star medium-star"></i>
+                  <i class="fa-solid fa-star medium-star"></i>
+                  <i class="fa-regular fa-star medium-star"></i>
+                  <i class="fa-regular fa-star medium-star"></i>
+                </div>
+              </ng-template>
+
+              <ng-template #smallRating25>
+                <div class="rating" *ngIf="avgRating > 2; else smallRating2">
+                  <i class="fa-solid fa-star medium-star"></i>
+                  <i class="fa-solid fa-star medium-star"></i>
+                  <i class="fa-solid fa-star-half-stroke medium-star"></i>
+                  <i class="fa-regular fa-star medium-star"></i>
+                  <i class="fa-regular fa-star medium-star"></i>
+                </div>
+              </ng-template>
+
+              <ng-template #smallRating2>
+                <div class="rating" *ngIf="avgRating > 1.5; else smallRating15">
+                  <i class="fa-solid fa-star medium-star"></i>
+                  <i class="fa-solid fa-star medium-star"></i>
+                  <i class="fa-regular fa-star medium-star"></i>
+                  <i class="fa-regular fa-star medium-star"></i>
+                  <i class="fa-regular fa-star medium-star"></i>
+                </div>
+              </ng-template>
+
+              <ng-template #smallRating15>
+                <div class="rating" *ngIf="avgRating > 1; else smallRating1">
+                  <i class="fa-solid fa-star medium-star"></i>
+                  <i class="fa-solid fa-star-half-stroke medium-star"></i>
+                  <i class="fa-regular fa-star medium-star"></i>
+                  <i class="fa-regular fa-star medium-star"></i>
+                  <i class="fa-regular fa-star medium-star"></i>
+                </div>
+              </ng-template>
+
+              <ng-template #smallRating1>
+                <div class="rating" *ngIf="avgRating > 0; else smallRating0">
+                  <i class="fa-solid fa-star medium-star"></i>
+                  <i class="fa-regular fa-star medium-star"></i>
+                  <i class="fa-regular fa-star medium-star"></i>
+                  <i class="fa-regular fa-star medium-star"></i>
+                  <i class="fa-regular fa-star medium-star"></i>
+                </div>
+              </ng-template>
+
+              <ng-template #smallRating0>
+                <div class="rating">
+                  <i class="fa-regular fa-star medium-star"></i>
+                  <i class="fa-regular fa-star medium-star"></i>
+                  <i class="fa-regular fa-star medium-star"></i>
+                  <i class="fa-regular fa-star medium-star"></i>
+                  <i class="fa-regular fa-star medium-star"></i>
+                </div>
+              </ng-template>
+
+              <div class="ms-3 me-3" style="color: rgb(174, 169, 169);"> | </div>
+              <a class="no-underline" style="color: black" href="http://localhost:4200/customer-book-details/{{book.id}}#rating_card"> {{totalRating}} </a>
+              <p class="text-secondary ms-1"> Đánh giá </p>
+              <div class="ms-3 me-3" style="color: rgb(174, 169, 169);"> | </div>
+              <p class="text-secondary"> Đã bán </p>
+              <p class="ms-1"> {{book.sell}} </p>
+            </div>
+
+            <div class="fw-bold currency" style="background-color: rgb(249, 249, 248); padding: 15px;">
+              <h2> {{book.stringPrice}} <u> đ </u> </h2>
+            </div>
+
+            <div class="d-flex align-center-center" style="margin-top: 35px;">
+              <label class="text-secondary"> Số lượng </label>
+              
+              <div *ngIf="quantity <= 1; else minusButton">
+                <i class="fa-solid fa-square-minus ms-5" style="font-size: 30px; color: rgb(233, 233, 233);"></i>
+              </div>
+
+              <ng-template #minusButton>
+                <i (click)="decreaseQuantity()" class="fa-solid fa-square-minus ms-5 quantity-button cursor-pointer" style="font-size: 30px;"></i>
+              </ng-template>
+
+              <input class="border text-center" type="number" id="orderQuantity" name="orderQuantity" style="width: 50px; height: 28px; border-radius: 0.3rem;" [(ngModel)]="quantity" min="1" max={{book.remain}}>
+
+              <div *ngIf="quantity >= book.remain; else plusButton">
+                <i class="fa-solid fa-square-plus" style="font-size: 30px; color: rgb(233, 233, 233);"></i>
+              </div>
+
+              <ng-template #plusButton>
+                <i (click)="increaseQuantity()" class="fa-solid fa-square-plus quantity-button cursor-pointer" style="font-size: 30px;"></i>
+              </ng-template>
+              
+              <label class="text-secondary ms-3"> Còn {{book.remain}} sản phẩm </label>
+            </div>
+
+            <div class="row mt-4">
+              <button (click)="addItemToCart()" class="btn btn-outline-danger border-2 col-4 fw-bold" style="height: 45px; margin-left: 15px;"> Thêm vào giỏ hàng </button>
+              <button (click)="addItemToCart1()" class="btn btn-danger col-4 ms-3 fw-bold" style="height: 45px;"> Mua ngay </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Relate book -->
+
+    <div class="card">
+      <div class="container-fluid">
+        <h5> Sản Phẩm Liên Quan </h5>
+
+        <ul class="list-group list-group-horizontal">
+          <div *ngFor="let relateBook of relateBooks">
+            <li class="list-group-item list-group-item-book">
+              <a (click)="loadCustomerBookDetails(relateBook.id)" class="no-underline-0" routerLink="/customer-book-details/{{relateBook.id}}">
+                <img class="img-fluid" src={{relateBook.image}}>
+                <div class="multi-line mt-1" style="font-size:small; color: black; height: 38px;"> {{relateBook.title}} </div>
+                <div class="d-flex justify-content-start">
+                  <div class="rating" *ngIf="relateBook.totalRate > 4.5; else relateRating45">
+                    <i class="fa-solid fa-star small-star"></i>
+                    <i class="fa-solid fa-star small-star"></i>
+                    <i class="fa-solid fa-star small-star"></i>
+                    <i class="fa-solid fa-star small-star"></i>
+                    <i class="fa-solid fa-star small-star"></i>
+                  </div>
+      
+                  <ng-template #relateRating45>
+                    <div class="rating" *ngIf="relateBook.totalRate > 4; else relateRating4">
+                      <i class="fa-solid fa-star small-star"></i>
+                      <i class="fa-solid fa-star small-star"></i>
+                      <i class="fa-solid fa-star small-star"></i>
+                      <i class="fa-solid fa-star small-star"></i>
+                      <i class="fa-solid fa-star-half-stroke small-star"></i>
+                    </div>
+                  </ng-template>
+      
+                  <ng-template #relateRating4>
+                    <div class="rating" *ngIf="relateBook.totalRate > 3.5; else relateRating35">
+                      <i class="fa-solid fa-star small-star"></i>
+                      <i class="fa-solid fa-star small-star"></i>
+                      <i class="fa-solid fa-star small-star"></i>
+                      <i class="fa-solid fa-star small-star"></i>
+                      <i class="fa-regular fa-star small-star"></i>
+                    </div>
+                  </ng-template>
+      
+                  <ng-template #relateRating35>
+                    <div class="rating" *ngIf="relateBook.totalRate > 3; else relateRating3">
+                      <i class="fa-solid fa-star small-star"></i>
+                      <i class="fa-solid fa-star small-star"></i>
+                      <i class="fa-solid fa-star small-star"></i>
+                      <i class="fa-solid fa-star-half-stroke small-star"></i>
+                      <i class="fa-regular fa-star small-star"></i>
+                    </div>
+                  </ng-template>
+      
+                  <ng-template #relateRating3>
+                    <div class="rating" *ngIf="relateBook.totalRate > 2.5; else relateRating25">
+                      <i class="fa-solid fa-star small-star"></i>
+                      <i class="fa-solid fa-star small-star"></i>
+                      <i class="fa-solid fa-star small-star"></i>
+                      <i class="fa-regular fa-star small-star"></i>
+                      <i class="fa-regular fa-star small-star"></i>
+                    </div>
+                  </ng-template>
+      
+                  <ng-template #relateRating25>
+                    <div class="rating" *ngIf="relateBook.totalRate > 2; else relateRating2">
+                      <i class="fa-solid fa-star small-star"></i>
+                      <i class="fa-solid fa-star small-star"></i>
+                      <i class="fa-solid fa-star-half-stroke small-star"></i>
+                      <i class="fa-regular fa-star small-star"></i>
+                      <i class="fa-regular fa-star small-star"></i>
+                    </div>
+                  </ng-template>
+      
+                  <ng-template #relateRating2>
+                    <div class="rating" *ngIf="relateBook.totalRate > 1.5; else relateRating15">
+                      <i class="fa-solid fa-star small-star"></i>
+                      <i class="fa-solid fa-star small-star"></i>
+                      <i class="fa-regular fa-star small-star"></i>
+                      <i class="fa-regular fa-star small-star"></i>
+                      <i class="fa-regular fa-star small-star"></i>
+                    </div>
+                  </ng-template>
+      
+                  <ng-template #relateRating15>
+                    <div class="rating" *ngIf="relateBook.totalRate > 1; else relateRating1">
+                      <i class="fa-solid fa-star small-star"></i>
+                      <i class="fa-solid fa-star-half-stroke small-star"></i>
+                      <i class="fa-regular fa-star small-star"></i>
+                      <i class="fa-regular fa-star small-star"></i>
+                      <i class="fa-regular fa-star small-star"></i>
+                    </div>
+                  </ng-template>
+      
+                  <ng-template #relateRating1>
+                    <div class="rating" *ngIf="relateBook.totalRate > 0; else relateRating0">
+                      <i class="fa-solid fa-star small-star"></i>
+                      <i class="fa-regular fa-star small-star"></i>
+                      <i class="fa-regular fa-star small-star"></i>
+                      <i class="fa-regular fa-star small-star"></i>
+                      <i class="fa-regular fa-star small-star"></i>
+                    </div>
+                  </ng-template>
+      
+                  <ng-template #relateRating0>
+                    <div class="rating">
+                      <i class="fa-regular fa-star small-star"></i>
+                      <i class="fa-regular fa-star small-star"></i>
+                      <i class="fa-regular fa-star small-star"></i>
+                      <i class="fa-regular fa-star small-star"></i>
+                      <i class="fa-regular fa-star small-star"></i>
+                    </div>
+                  </ng-template>
+      
+                  <div class="mt-1" style="font-size: small; margin-left: 10px; color: rgb(237, 164, 30)"> ({{relateBook.ratingNumber}}) </div>
+                </div>
+      
+                <div class="d-flex justify-content-between align-items-end">
+                    <div class="fw-bold currency"> {{relateBook.stringPrice}} <u> đ </u> </div>
+                    <div class="text-secondary" style="font-size: small"> Đã bán {{relateBook.sell}} </div>
+                </div>
+              </a>
+            </li>
+          </div>
+        </ul>
+      </div>
+    </div>
+
+      <!-- Book details -->
+
+      <div class="card">
+        <div class="container-fluid">
+          <h5 class="mb-4"> Thông Tin Chi Tiết </h5>
+    
+          <div class="row">
+            <div class="col-2">
+              <div class="text-secondary"> Tác giả </div>
+              <div class="text-secondary mt-2"> Thể loại </div>
+              <div class="text-secondary mt-2"> Loại bìa </div>
+              <div class="text-secondary mt-2"> Kích thước </div>
+              <div class="text-secondary mt-2"> Số trang </div>
+              <div class="text-secondary mt-2"> Nhà xuất bản </div>
+              <div class="text-secondary mt-2"> Năm xuất bản </div>
+            </div>
+    
+            <div class="col-10">
+              <div class="mb-2"> {{book.author.lastName}} {{book.author.firstName}} </div>
+              <a class="no-underline" style="color: rgb(30, 126, 223)" routerLink="/book-type/{{book.genre}}"> {{genreTemp}} </a>
+              <div class="mt-2"> {{book.type}} </div>
+              <div class="mt-2"> {{book.size}} </div>
+              <div class="mt-2"> {{book.pageNumber}} </div>
+              <div class="mt-2"> {{book.publisher.name}} </div>
+              <div class="mt-2"> {{book.publicationYear}} </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    <!-- Book description -->
+
+    <div class="card">
+      <div class="container-fluid">
+        <h5 class="mb-4"> Mô Tả Sản Phẩm </h5>
+        <div class="fw-bold"> {{book.title}} </div>
+        <div class="mt-2"> {{book.description}} </div>
+      </div>
+    </div>
+
+    <!-- Book rating -->
+
+    <div class="card" id="rating_card">
+      <div class="container-fluid">
+        <h5> Đánh Giá Từ Khách Hàng </h5>
+
+        <div>
+          <div class="row">
+            <div class="col-2 d-flex align-items-center">
+              <div class="row">
+                <div class="d-flex justify-content-center">
+                  <h1> {{avgRating}} </h1>
+                  <h3 class="text-secondary ms-1" style="margin-top: 10px;"> /5 </h3>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                  <div class="rating" *ngIf="avgRating > 4.5; else rating45">
+                    <i class="fa-solid fa-star star"></i>
+                    <i class="fa-solid fa-star star"></i>
+                    <i class="fa-solid fa-star star"></i>
+                    <i class="fa-solid fa-star star"></i>
+                    <i class="fa-solid fa-star star"></i>
+                  </div>
+
+                  <ng-template #rating45>
+                    <div class="rating" *ngIf="avgRating > 4; else rating4">
+                      <i class="fa-solid fa-star star"></i>
+                      <i class="fa-solid fa-star star"></i>
+                      <i class="fa-solid fa-star star"></i>
+                      <i class="fa-solid fa-star star"></i>
+                      <i class="fa-solid fa-star-half-stroke star"></i>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #rating4>
+                    <div class="rating" *ngIf="avgRating > 3.5; else rating35">
+                      <i class="fa-solid fa-star star"></i>
+                      <i class="fa-solid fa-star star"></i>
+                      <i class="fa-solid fa-star star"></i>
+                      <i class="fa-solid fa-star star"></i>
+                      <i class="fa-regular fa-star star"></i>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #rating35>
+                    <div class="rating" *ngIf="avgRating > 3; else rating3">
+                      <i class="fa-solid fa-star star"></i>
+                      <i class="fa-solid fa-star star"></i>
+                      <i class="fa-solid fa-star star"></i>
+                      <i class="fa-solid fa-star-half-stroke star"></i>
+                      <i class="fa-regular fa-star star"></i>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #rating3>
+                    <div class="rating" *ngIf="avgRating > 2.5; else rating25">
+                      <i class="fa-solid fa-star star"></i>
+                      <i class="fa-solid fa-star star"></i>
+                      <i class="fa-solid fa-star star"></i>
+                      <i class="fa-regular fa-star star"></i>
+                      <i class="fa-regular fa-star star"></i>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #rating25>
+                    <div class="rating" *ngIf="avgRating > 2; else rating2">
+                      <i class="fa-solid fa-star star"></i>
+                      <i class="fa-solid fa-star star"></i>
+                      <i class="fa-solid fa-star-half-stroke star"></i>
+                      <i class="fa-regular fa-star star"></i>
+                      <i class="fa-regular fa-star star"></i>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #rating2>
+                    <div class="rating" *ngIf="avgRating > 1.5; else rating15">
+                      <i class="fa-solid fa-star star"></i>
+                      <i class="fa-solid fa-star star"></i>
+                      <i class="fa-regular fa-star star"></i>
+                      <i class="fa-regular fa-star star"></i>
+                      <i class="fa-regular fa-star star"></i>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #rating15>
+                    <div class="rating" *ngIf="avgRating > 1; else rating1">
+                      <i class="fa-solid fa-star star"></i>
+                      <i class="fa-solid fa-star-half-stroke star"></i>
+                      <i class="fa-regular fa-star star"></i>
+                      <i class="fa-regular fa-star star"></i>
+                      <i class="fa-regular fa-star star"></i>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #rating1>
+                    <div class="rating" *ngIf="avgRating > 0; else rating0">
+                      <i class="fa-solid fa-star star"></i>
+                      <i class="fa-regular fa-star star"></i>
+                      <i class="fa-regular fa-star star"></i>
+                      <i class="fa-regular fa-star star"></i>
+                      <i class="fa-regular fa-star star"></i>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #rating0>
+                    <div class="rating">
+                      <i class="fa-regular fa-star star"></i>
+                      <i class="fa-regular fa-star star"></i>
+                      <i class="fa-regular fa-star star"></i>
+                      <i class="fa-regular fa-star star"></i>
+                      <i class="fa-regular fa-star star"></i>
+                    </div>
+                  </ng-template>
+                </div>
+
+                <p class="text-center text-secondary" style="margin-top: 5px"> {{totalRating}} đánh giá </p>
+              </div>
+            </div>
+
+            <div class="col-10">
+              <div class="d-flex">
+                <div class="rating">
+                  <i class="fa-solid fa-star small-star"></i>
+                  <i class="fa-solid fa-star small-star"></i>
+                  <i class="fa-solid fa-star small-star"></i>
+                  <i class="fa-solid fa-star small-star"></i>
+                  <i class="fa-solid fa-star small-star"></i>
+                </div>
+
+                <div class="progress ms-4">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{'width.%': avgRating_5}"></div>
+                </div>
+
+                <p class="ms-4"> {{avgRating_5}}% </p>
+              </div>
+
+              <div class="d-flex">
+                <div class="rating">
+                  <i class="fa-solid fa-star small-star"></i>
+                  <i class="fa-solid fa-star small-star"></i>
+                  <i class="fa-solid fa-star small-star"></i>
+                  <i class="fa-solid fa-star small-star"></i>
+                  <i class="fa-regular fa-star small-star"></i>
+                </div>
+
+                <div class="progress ms-4">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{'width.%': avgRating_4}"></div>
+                </div>
+
+                <p class="ms-4"> {{avgRating_4}}% </p>
+              </div>
+
+              <div class="d-flex">
+                <div class="rating">
+                  <i class="fa-solid fa-star small-star"></i>
+                  <i class="fa-solid fa-star small-star"></i>
+                  <i class="fa-solid fa-star small-star"></i>
+                  <i class="fa-regular fa-star small-star"></i>
+                  <i class="fa-regular fa-star small-star"></i>
+                </div>
+
+                <div class="progress ms-4">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{'width.%': avgRating_3}"></div>
+                </div>
+
+                <p class="ms-4"> {{avgRating_3}}% </p>
+              </div>
+
+              <div class="d-flex">
+                <div class="rating">
+                  <i class="fa-solid fa-star small-star"></i>
+                  <i class="fa-solid fa-star small-star"></i>
+                  <i class="fa-regular fa-star small-star"></i>
+                  <i class="fa-regular fa-star small-star"></i>
+                  <i class="fa-regular fa-star small-star"></i>
+                </div>
+
+                <div class="progress ms-4">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{'width.%': avgRating_2}"></div>
+                </div>
+
+                <p class="ms-4"> {{avgRating_2}}% </p>
+              </div>
+
+              <div class="d-flex">
+                <div class="rating">
+                  <i class="fa-solid fa-star small-star"></i>
+                  <i class="fa-regular fa-star small-star"></i>
+                  <i class="fa-regular fa-star small-star"></i>
+                  <i class="fa-regular fa-star small-star"></i>
+                  <i class="fa-regular fa-star small-star"></i>
+                </div>
+
+                <div class="progress ms-4">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{'width.%': avgRating_1}"></div>
+                </div>
+
+                <p class="ms-4"> {{avgRating_1}}% </p>
+              </div>
+            </div>
+          </div>
+
+          <div *ngFor = "let review of reviews" id="customer_rating_card">
+            <hr>
+
+            <div class="row">
+              <div class="col-3">
+                <div class="text"> <b> {{review.user.lastName}} {{review.user.firstName}} </b> </div>
+              </div>
+
+              <div class="col-9">
+                <div class="rating" *ngIf="review.rate == 5; else reviewrating4">
+                  <i class="fa-solid fa-star star"></i>
+                  <i class="fa-solid fa-star star"></i>
+                  <i class="fa-solid fa-star star"></i>
+                  <i class="fa-solid fa-star star"></i>
+                  <i class="fa-solid fa-star star"></i>
+                </div>
+
+                <ng-template #reviewrating4>
+                  <div class="rating" *ngIf="review.rate == 4; else reviewrating3">
+                    <i class="fa-solid fa-star star"></i>
+                    <i class="fa-solid fa-star star"></i>
+                    <i class="fa-solid fa-star star"></i>
+                    <i class="fa-solid fa-star star"></i>
+                    <i class="fa-regular fa-star star"></i>
+                  </div>
+                </ng-template>
+
+                <ng-template #reviewrating3>
+                  <div class="rating" *ngIf="review.rate == 3; else reviewrating2">
+                    <i class="fa-solid fa-star star"></i>
+                    <i class="fa-solid fa-star star"></i>
+                    <i class="fa-solid fa-star star"></i>
+                    <i class="fa-regular fa-star star"></i>
+                    <i class="fa-regular fa-star star"></i>
+                  </div>
+                </ng-template>
+
+                <ng-template #reviewrating2>
+                  <div class="rating" *ngIf="review.rate == 2; else reviewrating1">
+                    <i class="fa-solid fa-star star"></i>
+                    <i class="fa-solid fa-star star"></i>
+                    <i class="fa-regular fa-star star"></i>
+                    <i class="fa-regular fa-star star"></i>
+                    <i class="fa-regular fa-star star"></i>
+                  </div>
+                </ng-template>
+
+                <ng-template #reviewrating1>
+                  <div class="rating">
+                    <i class="fa-solid fa-star star"></i>
+                    <i class="fa-regular fa-star star"></i>
+                    <i class="fa-regular fa-star star"></i>
+                    <i class="fa-regular fa-star star"></i>
+                    <i class="fa-regular fa-star star"></i>
+                  </div>
+                </ng-template>
+
+                <div class="mt-2"> {{review.comment}} </div>
+
+                <div class="mt-3 p-3" *ngIf="review.response != ''" style="background-color: rgb(242, 242, 242)">
+                  <div style="color: rgb(189, 171, 15)"> Phản Hồi Của HNLBook </div>
+                  <div class="mt-1"> {{review.response}} </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ul class="pagination justify-content-end mt-3">
+            <li class="page-item disabled">
+              <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+
+            <div *ngFor = "let reviewPageNo of reviewPageNumber">
+              <li (click)="pagingReview(reviewPageNo)" class="page-item"> <a class="page-link" href="http://localhost:4200/customer-book-details/{{book.id}}#customer_rating_card"> {{reviewPageNo}} </a> </li>
+            </div>
+
+            <li class="page-item disabled">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Same genre book -->
+
+    <div class="card" id="same_genre_book_card">
+      <div class="container">
+        <h5> Có Thể Bạn Cũng Thích </h5>
+
+        <div class="container">
+          <div class="row row-cols-6">
+            <tr *ngFor="let sameGenreBook of sameGenreBooks">
+              <div class="col-sm">
+                <li class="list-group-item list-group-item-book">
+                  <a (click)="loadCustomerBookDetails(sameGenreBook.id)" class="no-underline-0" routerLink="/customer-book-details/{{sameGenreBook.id}}">
+                    <img class="img-fluid" src={{sameGenreBook.image}}>
+                    <div class="multi-line mt-1" style="font-size: small; color: black; height: 38px;"> {{sameGenreBook.title}} </div>
+                    <div class="d-flex justify-content-start">
+                      <div class="rating" *ngIf="sameGenreBook.totalRate > 4.5; else sameGenreRating45">
+                        <i class="fa-solid fa-star small-star"></i>
+                        <i class="fa-solid fa-star small-star"></i>
+                        <i class="fa-solid fa-star small-star"></i>
+                        <i class="fa-solid fa-star small-star"></i>
+                        <i class="fa-solid fa-star small-star"></i>
+                      </div>
+          
+                      <ng-template #sameGenreRating45>
+                        <div class="rating" *ngIf="sameGenreBook.totalRate > 4; else sameGenreRating4">
+                          <i class="fa-solid fa-star small-star"></i>
+                          <i class="fa-solid fa-star small-star"></i>
+                          <i class="fa-solid fa-star small-star"></i>
+                          <i class="fa-solid fa-star small-star"></i>
+                          <i class="fa-solid fa-star-half-stroke small-star"></i>
+                        </div>
+                      </ng-template>
+          
+                      <ng-template #sameGenreRating4>
+                        <div class="rating" *ngIf="sameGenreBook.totalRate > 3.5; else sameGenreRating35">
+                          <i class="fa-solid fa-star small-star"></i>
+                          <i class="fa-solid fa-star small-star"></i>
+                          <i class="fa-solid fa-star small-star"></i>
+                          <i class="fa-solid fa-star small-star"></i>
+                          <i class="fa-regular fa-star small-star"></i>
+                        </div>
+                      </ng-template>
+          
+                      <ng-template #sameGenreRating35>
+                        <div class="rating" *ngIf="sameGenreBook.totalRate > 3; else sameGenreRating3">
+                          <i class="fa-solid fa-star small-star"></i>
+                          <i class="fa-solid fa-star small-star"></i>
+                          <i class="fa-solid fa-star small-star"></i>
+                          <i class="fa-solid fa-star-half-stroke small-star"></i>
+                          <i class="fa-regular fa-star small-star"></i>
+                        </div>
+                      </ng-template>
+          
+                      <ng-template #sameGenreRating3>
+                        <div class="rating" *ngIf="sameGenreBook.totalRate > 2.5; else sameGenreRating25">
+                          <i class="fa-solid fa-star small-star"></i>
+                          <i class="fa-solid fa-star small-star"></i>
+                          <i class="fa-solid fa-star small-star"></i>
+                          <i class="fa-regular fa-star small-star"></i>
+                          <i class="fa-regular fa-star small-star"></i>
+                        </div>
+                      </ng-template>
+          
+                      <ng-template #sameGenreRating25>
+                        <div class="rating" *ngIf="sameGenreBook.totalRate > 2; else sameGenreRating2">
+                          <i class="fa-solid fa-star small-star"></i>
+                          <i class="fa-solid fa-star small-star"></i>
+                          <i class="fa-solid fa-star-half-stroke small-star"></i>
+                          <i class="fa-regular fa-star small-star"></i>
+                          <i class="fa-regular fa-star small-star"></i>
+                        </div>
+                      </ng-template>
+          
+                      <ng-template #sameGenreRating2>
+                        <div class="rating" *ngIf="sameGenreBook.totalRate > 1.5; else sameGenreRating15">
+                          <i class="fa-solid fa-star small-star"></i>
+                          <i class="fa-solid fa-star small-star"></i>
+                          <i class="fa-regular fa-star small-star"></i>
+                          <i class="fa-regular fa-star small-star"></i>
+                          <i class="fa-regular fa-star small-star"></i>
+                        </div>
+                      </ng-template>
+          
+                      <ng-template #sameGenreRating15>
+                        <div class="rating" *ngIf="sameGenreBook.totalRate > 1; else sameGenreRating1">
+                          <i class="fa-solid fa-star small-star"></i>
+                          <i class="fa-solid fa-star-half-stroke small-star"></i>
+                          <i class="fa-regular fa-star small-star"></i>
+                          <i class="fa-regular fa-star small-star"></i>
+                          <i class="fa-regular fa-star small-star"></i>
+                        </div>
+                      </ng-template>
+          
+                      <ng-template #sameGenreRating1>
+                        <div class="rating" *ngIf="sameGenreBook.totalRate > 0; else sameGenreRating0">
+                          <i class="fa-solid fa-star small-star"></i>
+                          <i class="fa-regular fa-star small-star"></i>
+                          <i class="fa-regular fa-star small-star"></i>
+                          <i class="fa-regular fa-star small-star"></i>
+                          <i class="fa-regular fa-star small-star"></i>
+                        </div>
+                      </ng-template>
+          
+                      <ng-template #sameGenreRating0>
+                        <div class="rating">
+                          <i class="fa-regular fa-star small-star"></i>
+                          <i class="fa-regular fa-star small-star"></i>
+                          <i class="fa-regular fa-star small-star"></i>
+                          <i class="fa-regular fa-star small-star"></i>
+                          <i class="fa-regular fa-star small-star"></i>
+                        </div>
+                      </ng-template>
+          
+                      <div class="mt-1" style="font-size:small; margin-left: 10px; color: rgb(237, 164, 30)"> ({{sameGenreBook.ratingNumber}}) </div>
+                    </div>
+          
+                    <div class="d-flex justify-content-between align-items-end">
+                        <div class="fw-bold currency"> {{sameGenreBook.stringPrice}} <u> đ </u> </div>
+                        <div class="text-secondary" style="font-size:small"> Đã bán {{sameGenreBook.sell}} </div>
+                    </div>
+                  </a>
+                </li>
+              </div>
+            </tr>
+          </div>
+        </div>
+
+        <ul class="pagination justify-content-end">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+
+          <div *ngFor = "let sameGenreBookPageNo of sameGenreBookPageNumber">
+            <li (click)="pagingSameGenreBook(sameGenreBookPageNo)" class="page-item"> <a class="page-link" href="http://localhost:4200/customer-book-details/{{book.id}}#same_genre_book_card"> {{sameGenreBookPageNo}} </a> </li>
+          </div>
+
+          <li class="page-item disabled">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

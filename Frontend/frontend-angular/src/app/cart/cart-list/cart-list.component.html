@@ -1,0 +1,96 @@
+<div class="container">
+  <h2 class="text-center"> Danh sách đơn hàng </h2>
+
+  <table class = "table table-striped table-hover">
+    <thead>
+        <tr>
+          <th> Mã đơn hàng </th>
+          <th> Khách hàng </th>
+          <th> Ngày đặt </th>
+          <th> Trạng thái </th>
+          <th> Chức năng </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor = "let order of orders">
+            <td> {{order.id}} </td>
+            <td> {{ order.user.lastName}} {{order.user.firstName}} </td>
+            <td> {{ order.orderDate}} </td>
+            <td> {{ order.status }} </td>
+            <td>
+              <div class="btn-group">
+                <!-- <button (click) = "goToCartDetail(order.id)" class = "btn btn-info" style = "margin-left: 10px"> Xem </button> -->
+                <button (click)="getOrderDetai(order.id)" type="button" class="btn btn-info " data-bs-toggle="modal" attr.data-bs-target="#detailOrder{{order.id}}" style="padding: 10px 30px 10px 30px">Xem</button>
+                <button  class = "btn btn-warning " style = "margin-left: 10px" data-bs-toggle="collapse" attr.data-bs-target= "#update{{order.id}}"
+                aria-expanded="false" aria-labelledby="heading" aria-controls="collapseExample"> Cập nhật </button>
+                <button  (click)= "deleteOrder(order.id)" class = "btn btn-danger" style = "margin-left: 10px"> Xóa </button>
+
+              </div>
+              <div class="modal fade" id="detailOrder{{order.id}}" tabindex="-1" aria-labelledby="rateModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="rateModalLabel">Chi tiết đơn hàng </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class=" modal-body">
+                          <div *ngFor = "let orderItem of orderItems">
+                            <div class="row border-top border-bottom">
+                              <div class="row main align-items-center">
+                                  <div class="col-md-3 col-lg-3 col-xl-2 d-flex me-4"><img class="img-fluid" src={{orderItem.book.image}}></div>
+                                  <div class="col me-4">
+                                      <div class="row text-muted">{{orderItem.book.genre}}</div>
+                                      <div class="row">{{orderItem.book.title}} </div>
+                                  </div>
+                                  <div class="col-md-3 col-lg-3 col-xl-2 d-flex ">
+                                    <input id="form1" min="0" name="quantity" [(ngModel)]="orderItem.quantity"
+                                      class="form-control form-control-sm" readonly/>
+                                      <!-- <button class="border" (click)="reduce(orderItem)">-</button><button class="border" style="background-color: white;">{{orderItem.quantity}}</button><button class="border" (click)="increase(orderItem)">+</button> -->
+                                  </div>
+                                  <div class="col-md-3 col-lg-3 col-xl-2 d-flex">{{orderItem.book.stringPrice}} đ</div>
+                              </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row modal-footer justify-content-center">
+                            <!-- <button type="button" class="btn btn-danger"
+                                style="width: 180px" data-bs-dismiss="modal"> Xóa </button>
+                            <button type="button" class="btn btn-secondary" style="width: 180px"
+                                data-bs-dismiss="modal"> Đóng </button> -->
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                  <span class=" offset-md-7 " id="sumMoney">Tổng tiền: {{sSumMoney}} đ</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12 ">
+                                <span class="border-2 fw-bold">Khách hàng: {{order.user.lastName}} {{order.user.firstName}}</span>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12">
+                                <span class="border-2 fw-bold">Số điện thoại: {{ order.user.phone}}</span>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12">
+                                <span class="border-2 fw-bold">Địa chỉ: {{ order.user.address}}</span>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div *ngIf="checkStatus(order)" class="collapse mt-3" id="update{{order.id}}">
+                  <button (click)="Xacnhan(order)" id="btXacnhan{{order.id}}"  class = "btn btn-outline-primary" style = "margin-left: 10px"> Xác nhận </button>
+                  <button (click)="Danhan(order)" id="btDanhan{{order.id}}"  class = "btn btn-outline-success" style = "margin-left: 10px"> Đã nhận </button>
+                  <button (click)="Dahuy(order)" id ="btDahuy{{order.id}}" class = "btn btn-outline-danger" style = "margin-left: 10px"> Đã hủy </button>
+              </div>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+

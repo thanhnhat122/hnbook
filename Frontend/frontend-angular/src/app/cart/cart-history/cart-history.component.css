@@ -1,0 +1,35 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css);
+
+.total-price {
+    color: red;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.product-name {
+    font-size: 25px;
+
+}
+
+.sub-product-detail {
+    color: gray;
+    font-size: 15px;
+}
+
+.big-star {
+    color : orange;
+    font-size : 30px;
+    margin-left: 10px;
+}
+
+.rating {
+    margin-top: 8px;
+}
+
+.box {
+    width: fit-content;
+    float: right;
+    height: 80vw;
+    overflow-y: auto;
+    /* overflow: scroll; */
+}

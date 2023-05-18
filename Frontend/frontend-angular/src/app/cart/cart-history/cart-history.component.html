@@ -1,0 +1,775 @@
+<nav class="nav justify-content-center" style="margin: 50px 0 0 0 ;">
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#tat-ca-don"
+            type="button" role="tab" aria-controls="nav-home" aria-selected="true" (click)="getOrder(0)">Tất cả
+            đơn</button>
+        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#dang-xu-ly" type="button"
+            role="tab" aria-controls="nav-contact" aria-selected="false" (click)="getOrder(1)">Chờ xác
+            nhận</button>
+        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#dang-van-chuyen"
+            type="button" role="tab" aria-controls="nav-contact" aria-selected="false" (click)="getOrder(2)">Đang
+            vận
+            chuyển</button>
+        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#da-giao" type="button"
+            role="tab" aria-controls="nav-contact" aria-selected="false" (click)="getOrder(3)">Đã giao</button>
+        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#da-huy" type="button"
+            role="tab" aria-controls="nav-contact" aria-selected="false" (click)="getOrder(4)">Đã hủy</button>
+
+    </div>
+</nav>
+
+<div class="tab-content" id="nav-tabContent">
+
+    <!--Nội dung của thẻ tab-->
+    <!--Tat ca don-->
+    <div class="tab-pane fade show active" id="tat-ca-don" role="tabpanel" aria-labelledby="nav-home-tab">
+        <div *ngIf="getNumberOfOrders() > 0; else emptyOrder">
+            <tr *ngFor="let order of orders">
+
+                <!-- 1 card -->
+                <div class="card" style="margin: 20px 120px 20px 120px; width: 750px;">
+                    <!-- header  -->
+                    <div class="card-body">
+                        <ul class="nav justify-content-end">
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="#">Giao Hàng thành công</a>
+                            </li>
+                            <li class="nav-item">
+                                <p class="nav-link disabled">|</p>
+                            </li> -->
+                            <li class="nav-item">
+                                <p class="nav-link disabled">{{order.status}}</p>
+                            </li>
+                        </ul>
+                        <hr class="hr hr-blurry" />
+                    </div>
+
+                    <!-- detail order -->
+                    <div class="container">
+                        <div class="row row-cols-3">
+                            <div class="col-8" style="margin-left: 50px;">
+                                <!-- ten san pham -->
+                                <p class="product-name">Mã đơn hàng: {{order.id}}</p>
+                                <!-- phan loai hang-->
+                                <ul class="nav justify-content-start sub-product-detail" style="margin-right: 10px;">
+                                    <li class="nav-item" style="margin-right: 10px">
+                                        <p>Email: {{order.email}} </p>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <p>Ngày đặt: {{order.orderDate}} </p>
+                                    </li>
+                                </ul>
+
+                            </div>
+                            <div class="col-2">
+                                <br>
+                                <br>
+                                <a class="nav-link" data-bs-toggle="collapse" href="#detail{{order.id}}"
+                                    aria-expanded="false" aria-labelledby="heading" aria-controls="collapseExample"
+                                    (click)="getOrderItem(order.id)">
+                                    Chi tiết
+                                </a>
+
+                            </div>
+                        </div>
+                        <div class="collapse" id="detail{{order.id}}">
+            <tr *ngFor="let orderItem of orderItems">
+                <!-- 1 card -->
+                <div *ngIf="isSameOrderId(order.id, orderItem.orderId)" class="card" style="margin: 20px 0 20px 0;">
+                    <!-- detail order -->
+                    <div class="container">
+                        <div class="row row-cols-3">
+                            <div class="col-1">
+                                <img src={{orderItem.book.image}} width="100">
+                            </div>
+                            <div class="col-8" style="margin-left: 50px;">
+                                <!-- ten san pham -->
+                                <p class="product-name">{{orderItem.book.title}}</p>
+                                <!-- phan loai hang-->
+                                <ul class="nav justify-content-start sub-product-detail" style="margin-right: 10px;">
+                                    <li class="nav-item" style="margin-right: 10px">
+                                        <p>Đơn giá: </p>
+                                    </li>
+                                    <li class="nav-item">
+                                        <p>{{orderItem.book.stringPrice}} ₫</p>
+                                    </li>
+                                </ul>
+                                <!-- so luong-->
+                                <p class="sub-product-detail">x{{orderItem.quantity}}</p>
+                            </div>
+                            <div class="col-2">
+                                <br>
+                                <br>
+                                <p style="color: red">{{orderItem.sPrice}} ₫</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </tr>
+        </div>
+    </div>
+    <!-- footer -->
+    <hr class="hr hr-blurry" />
+    <div>
+        <ul class="nav justify-content-end" style="margin-right: 10px;">
+            <li class="nav-item" style="margin-right: 10px;">
+                <p>Tổng tiền: </p>
+            </li>
+            <li class="nav-item">
+                <div>
+                    <p class="total-price">
+                        {{order.sTotalPrice}} ₫
+                    </p>
+
+
+                </div>
+            </li>
+        </ul>
+    </div>
+
+
+    <div>
+        <ul class="nav justify-content-end" style="margin: 0 10px 10px 0" style="margin-right: 10px;">
+            <li class="nav-item" style="margin-right: 20px; margin-bottom: 10px">
+                <button type="button" class="btn btn-danger">Mua lại</button>
+            </li>
+            <li class="nav-item">
+                <button type="button" class="btn btn-outline-primary">Liên hệ người bán</button>
+            </li>
+        </ul>
+    </div>
+
+
+</div>
+</tr>
+</div>
+
+<!-- others cards-->
+
+
+</div>
+
+<!--Dang xu ly-->
+<div class="tab-pane fade" id="dang-xu-ly" role="tabpanel" aria-labelledby="nav-contact-tab">
+    <div *ngIf="getNumberOfOrders() > 0; else emptyOrder">
+        <tr *ngFor="let order of orders">
+
+            <!-- 1 card -->
+            <div class="card" style="margin: 20px 120px 20px 120px; width: 750px;">
+                <!-- header  -->
+                <div class="card-body">
+                    <ul class="nav justify-content-end">
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#">Giao Hàng thành công</a>
+                        </li>
+                        <li class="nav-item">
+                            <p class="nav-link disabled">|</p>
+                        </li> -->
+                        <li class="nav-item">
+                            <p class="nav-link disabled">{{order.status}}</p>
+                        </li>
+                    </ul>
+                    <hr class="hr hr-blurry" />
+                </div>
+
+                <!-- detail order -->
+                <div class="container">
+                    <div class="row row-cols-3">
+                        <div class="col-8" style="margin-left: 50px;">
+                            <!-- ten san pham -->
+                            <p class="product-name">Mã đơn hàng: {{order.id}}</p>
+                            <!-- phan loai hang-->
+                            <ul class="nav justify-content-start sub-product-detail" style="margin-right: 10px;">
+                                <li class="nav-item" style="margin-right: 10px">
+                                    <p>Email: {{order.email}} </p>
+                                </li>
+
+                                <li class="nav-item">
+                                    <p>Ngày đặt: {{order.orderDate}} </p>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="col-2">
+                            <br>
+                            <br>
+                            <a class="nav-link" data-bs-toggle="collapse" href="#detail{{order.id}}"
+                                aria-expanded="false" aria-labelledby="heading" aria-controls="collapseExample"
+                                (click)="getOrderItem(order.id)">
+                                Chi tiết
+                            </a>
+
+                        </div>
+                    </div>
+                    <div class="collapse" id="detail{{order.id}}">
+        <tr *ngFor="let orderItem of orderItems">
+            <!-- 1 card -->
+            <div *ngIf="isSameOrderId(order.id, orderItem.orderId)" class="card" style="margin: 20px 0 20px 0;">
+                <!-- detail order -->
+                <div class="container">
+                    <div class="row row-cols-3">
+                        <div class="col-1">
+                            <img src={{orderItem.book.image}} width="100">
+                        </div>
+                        <div class="col-8" style="margin-left: 50px;">
+                            <!-- ten san pham -->
+                            <p class="product-name">{{orderItem.book.title}}</p>
+                            <!-- phan loai hang-->
+                            <ul class="nav justify-content-start sub-product-detail" style="margin-right: 10px;">
+                                <li class="nav-item" style="margin-right: 10px">
+                                    <p>Đơn giá: </p>
+                                </li>
+                                <li class="nav-item">
+                                    <p>{{orderItem.book.stringPrice}} ₫</p>
+                                </li>
+                            </ul>
+                            <!-- so luong-->
+                            <p class="sub-product-detail">x{{orderItem.quantity}}</p>
+                        </div>
+                        <div class="col-2">
+                            <br>
+                            <br>
+                            <p style="color: red">{{orderItem.sPrice}} ₫</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </tr>
+    </div>
+</div>
+<!-- footer -->
+<hr class="hr hr-blurry" />
+<div>
+    <ul class="nav justify-content-end" style="margin-right: 10px;">
+        <li class="nav-item" style="margin-right: 10px;">
+            <p>Tổng tiền: </p>
+        </li>
+        <li class="nav-item">
+            <div>
+                <p class="total-price">{{order.sTotalPrice}} ₫</p>
+            </div>
+        </li>
+    </ul>
+</div>
+
+
+<div>
+    <ul class="nav justify-content-end" style="margin: 0 10px 10px 0" style="margin-right: 10px;">
+        <li class="nav-item" style="margin-right: 20px; margin-bottom: 10px">
+            <button type="button" class="btn btn-danger">Mua lại</button>
+        </li>
+        <li class="nav-item">
+            <button type="button" class="btn btn-outline-primary">Liên hệ người bán</button>
+        </li>
+    </ul>
+</div>
+
+
+</div>
+</tr>
+</div>
+</div>
+
+<!--Dang van chuyen-->
+<div class="tab-pane fade" id="dang-van-chuyen" role="tabpanel" aria-labelledby="nav-contact-tab">
+    <div *ngIf="getNumberOfOrders() > 0; else emptyOrder">
+        <tr *ngFor="let order of orders">
+
+            <!-- 1 card -->
+            <div class="card" style="margin: 20px 120px 20px 120px; width: 750px;">
+                <!-- header  -->
+                <div class="card-body">
+                    <ul class="nav justify-content-end">
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#">Giao Hàng thành công</a>
+                        </li>
+                        <li class="nav-item">
+                            <p class="nav-link disabled">|</p>
+                        </li> -->
+                        <li class="nav-item">
+                            <p class="nav-link disabled">{{order.status}}</p>
+                        </li>
+                    </ul>
+                    <hr class="hr hr-blurry" />
+                </div>
+
+                <!-- detail order -->
+                <div class="container">
+                    <div class="row row-cols-3">
+                        <div class="col-8" style="margin-left: 50px;">
+                            <!-- ten san pham -->
+                            <p class="product-name">Mã đơn hàng: {{order.id}}</p>
+                            <!-- phan loai hang-->
+                            <ul class="nav justify-content-start sub-product-detail" style="margin-right: 10px;">
+                                <li class="nav-item" style="margin-right: 10px">
+                                    <p>Email: {{order.email}} </p>
+                                </li>
+
+                                <li class="nav-item">
+                                    <p>Ngày đặt: {{order.orderDate}} </p>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="col-2">
+                            <br>
+                            <br>
+                            <a class="nav-link" data-bs-toggle="collapse" href="#detail{{order.id}}"
+                                aria-expanded="false" aria-labelledby="heading" aria-controls="collapseExample"
+                                (click)="getOrderItem(order.id)">
+                                Chi tiết
+                            </a>
+
+                        </div>
+                    </div>
+                    <div class="collapse" id="detail{{order.id}}">
+        <tr *ngFor="let orderItem of orderItems">
+            <!-- 1 card -->
+            <div *ngIf="isSameOrderId(order.id, orderItem.orderId)" class="card" style="margin: 20px 0 20px 0;">
+                <!-- detail order -->
+                <div class="container">
+                    <div class="row row-cols-3">
+                        <div class="col-1">
+                            <img src={{orderItem.book.image}} width="100">
+                        </div>
+                        <div class="col-8" style="margin-left: 50px;">
+                            <!-- ten san pham -->
+                            <p class="product-name">{{orderItem.book.title}}</p>
+                            <!-- phan loai hang-->
+                            <ul class="nav justify-content-start sub-product-detail" style="margin-right: 10px;">
+                                <li class="nav-item" style="margin-right: 10px">
+                                    <p>Đơn giá: </p>
+                                </li>
+                                <li class="nav-item">
+                                    <p>{{orderItem.book.stringPrice}} ₫</p>
+                                </li>
+                            </ul>
+                            <!-- so luong-->
+                            <p class="sub-product-detail">x{{orderItem.quantity}}</p>
+                        </div>
+                        <div class="col-2">
+                            <br>
+                            <br>
+                            <p style="color: red">{{orderItem.sPrice}} ₫</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </tr>
+    </div>
+</div>
+<!-- footer -->
+<hr class="hr hr-blurry" />
+<div>
+    <ul class="nav justify-content-end" style="margin-right: 10px;">
+        <li class="nav-item" style="margin-right: 10px;">
+            <p>Tổng tiền: </p>
+        </li>
+        <li class="nav-item">
+            <div>
+                <p class="total-price">{{order.sTotalPrice}} ₫</p>
+            </div>
+        </li>
+    </ul>
+</div>
+
+
+<div>
+    <ul class="nav justify-content-end" style="margin: 0 10px 10px 0" style="margin-right: 10px;">
+        <li class="nav-item" style="margin-right: 20px; margin-bottom: 10px">
+            <button type="button" class="btn btn-danger">Mua lại</button>
+        </li>
+        <li class="nav-item">
+            <button type="button" class="btn btn-outline-primary">Liên hệ người bán</button>
+        </li>
+    </ul>
+</div>
+
+
+</div>
+</tr>
+</div>
+</div>
+
+<!--Da giao-->
+<div class="tab-pane fade" id="da-giao" role="tabpanel" aria-labelledby="nav-contact-tab">
+    <div *ngIf="getNumberOfOrders() > 0; else emptyOrder">
+        <tr *ngFor="let order of orders">
+
+            <!-- 1 card -->
+            <div class="card" style="margin: 20px 120px 20px 120px; width: 750px;">
+                <!-- header  -->
+                <div class="card-body">
+                    <ul class="nav justify-content-end">
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#">Giao Hàng thành công</a>
+                        </li>
+                        <li class="nav-item">
+                            <p class="nav-link disabled">|</p>
+                        </li> -->
+                        <li class="nav-item">
+                            <p class="nav-link disabled">{{order.status}}</p>
+                        </li>
+                    </ul>
+                    <hr class="hr hr-blurry" />
+                </div>
+
+                <!-- detail order -->
+                <div class="container">
+                    <div class="row row-cols-3">
+                        <div class="col-8" style="margin-left: 50px;">
+                            <!-- ten san pham -->
+                            <p class="product-name">Mã đơn hàng: {{order.id}}</p>
+                            <!-- phan loai hang-->
+                            <ul class="nav justify-content-start sub-product-detail" style="margin-right: 10px;">
+                                <li class="nav-item" style="margin-right: 10px">
+                                    <p>Email: {{order.email}} </p>
+                                </li>
+
+                                <li class="nav-item">
+                                    <p>Ngày đặt: {{order.orderDate}} </p>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="col-2">
+                            <br>
+                            <br>
+                            <a class="nav-link" data-bs-toggle="collapse" href="#detail{{order.id}}"
+                                aria-expanded="false" aria-labelledby="heading" aria-controls="collapseExample"
+                                (click)="getOrderItem(order.id)">
+                                Chi tiết
+                            </a>
+
+                        </div>
+                    </div>
+                    <div class="collapse" id="detail{{order.id}}">
+        <tr *ngFor="let orderItem of orderItems">
+            <!-- 1 card -->
+            <div *ngIf="isSameOrderId(order.id, orderItem.orderId)" class="card" style="margin: 20px 0 20px 0;">
+                <!-- detail order -->
+                <div class="container mt-2 mb-2">
+                    <div class="row row-cols-3">
+                        <div class="col-1 d-flex align-items-center">
+                            <img src={{orderItem.book.image}} width="100">
+                        </div>
+                        <div class="col-8" style="margin-left: 50px;">
+                            <!-- ten san pham -->
+                            <p class="product-name">{{orderItem.book.title}}</p>
+                            <!-- phan loai hang-->
+                            <ul class="nav justify-content-start sub-product-detail" style="margin-right: 10px;">
+                                <li class="nav-item" style="margin-right: 10px">
+                                    <p>Đơn giá: </p>
+                                </li>
+                                <li class="nav-item">
+                                    <p>{{orderItem.book.stringPrice}} ₫</p>
+                                </li>
+                            </ul>
+                            <!-- so luong-->
+                            <p class="sub-product-detail">x{{orderItem.quantity}}</p>
+                            <!-- viet danh gia -->
+                            <button (click)="addReview(orderItem.id, orderItem.book.id)"
+                                class="btn btn-outline-success border-2 fw-bold" data-bs-toggle="modal"
+                                data-bs-target="#rateModal" style="padding: 10px 30px 10px 30px"> Viết đánh giá
+                            </button>
+
+                            <div class="modal fade" id="rateModal" tabindex="-1" aria-labelledby="rateModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="rateModalLabel"> Viết đánh giá </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="row">
+                                                    <div class="col-3">
+                                                        <img class="img-fluid" src={{book.image}}>
+                                                    </div>
+
+                                                    <div class="col-9">
+                                                        <h5> {{book.title}} </h5>
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-flex justify-content-center"
+                                                    style="margin-top: 10px; margin-bottom: 15px">
+                                                    <div class="rating" *ngIf="review.rate == 5; else newrating4">
+                                                        <i (click)="updateRating(1)"
+                                                            class="fa-solid fa-star big-star"></i>
+                                                        <i (click)="updateRating(2)"
+                                                            class="fa-solid fa-star big-star"></i>
+                                                        <i (click)="updateRating(3)"
+                                                            class="fa-solid fa-star big-star"></i>
+                                                        <i (click)="updateRating(4)"
+                                                            class="fa-solid fa-star big-star"></i>
+                                                        <i (click)="updateRating(5)"
+                                                            class="fa-solid fa-star big-star"></i>
+                                                    </div>
+
+                                                    <ng-template #newrating4>
+                                                        <div class="rating" *ngIf="review.rate == 4; else newrating3">
+                                                            <i (click)="updateRating(1)"
+                                                                class="fa-solid fa-star big-star"></i>
+                                                            <i (click)="updateRating(2)"
+                                                                class="fa-solid fa-star big-star"></i>
+                                                            <i (click)="updateRating(3)"
+                                                                class="fa-solid fa-star big-star"></i>
+                                                            <i (click)="updateRating(4)"
+                                                                class="fa-solid fa-star big-star"></i>
+                                                            <i (click)="updateRating(5)"
+                                                                class="fa-regular fa-star big-star"></i>
+                                                        </div>
+                                                    </ng-template>
+
+                                                    <ng-template #newrating3>
+                                                        <div class="rating" *ngIf="review.rate == 3; else newrating2">
+                                                            <i (click)="updateRating(1)"
+                                                                class="fa-solid fa-star big-star"></i>
+                                                            <i (click)="updateRating(2)"
+                                                                class="fa-solid fa-star big-star"></i>
+                                                            <i (click)="updateRating(3)"
+                                                                class="fa-solid fa-star big-star"></i>
+                                                            <i (click)="updateRating(4)"
+                                                                class="fa-regular fa-star big-star"></i>
+                                                            <i (click)="updateRating(5)"
+                                                                class="fa-regular fa-star big-star"></i>
+                                                        </div>
+                                                    </ng-template>
+
+                                                    <ng-template #newrating2>
+                                                        <div class="rating" *ngIf="review.rate == 2; else newrating1">
+                                                            <i (click)="updateRating(1)"
+                                                                class="fa-solid fa-star big-star"></i>
+                                                            <i (click)="updateRating(2)"
+                                                                class="fa-solid fa-star big-star"></i>
+                                                            <i (click)="updateRating(3)"
+                                                                class="fa-regular fa-star big-star"></i>
+                                                            <i (click)="updateRating(4)"
+                                                                class="fa-regular fa-star big-star"></i>
+                                                            <i (click)="updateRating(5)"
+                                                                class="fa-regular fa-star big-star"></i>
+                                                        </div>
+                                                    </ng-template>
+
+                                                    <ng-template #newrating1>
+                                                        <div class="rating">
+                                                            <i (click)="updateRating(1)"
+                                                                class="fa-solid fa-star big-star"></i>
+                                                            <i (click)="updateRating(2)"
+                                                                class="fa-regular fa-star big-star"></i>
+                                                            <i (click)="updateRating(3)"
+                                                                class="fa-regular fa-star big-star"></i>
+                                                            <i (click)="updateRating(4)"
+                                                                class="fa-regular fa-star big-star"></i>
+                                                            <i (click)="updateRating(5)"
+                                                                class="fa-regular fa-star big-star"></i>
+                                                        </div>
+                                                    </ng-template>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <textarea class="form-control" rows="5" name="description"
+
+                                                        placeholder="Mời bạn chia sẻ thêm một số cảm nhận về sản phẩm"
+                                                        [(ngModel)]="review.comment"></textarea>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button (click)="sendReview()" type="button" class="btn btn-primary"
+                                                style="width: 180px" data-bs-dismiss="modal"> Gửi đánh giá </button>
+                                            <button type="button" class="btn btn-secondary" style="width: 180px"
+                                                data-bs-dismiss="modal"> Đóng </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <br>
+                            <br>
+                            <p style="color: red">{{orderItem.sPrice}} ₫</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </tr>
+    </div>
+</div>
+<!-- footer -->
+<hr class="hr hr-blurry" />
+<div>
+    <ul class="nav justify-content-end" style="margin-right: 10px;">
+        <li class="nav-item" style="margin-right: 10px;">
+            <p>Tổng tiền: </p>
+        </li>
+        <li class="nav-item">
+            <div>
+                <p class="total-price">{{order.sTotalPrice}} ₫</p>
+            </div>
+        </li>
+    </ul>
+</div>
+
+
+<div>
+    <ul class="nav justify-content-end" style="margin: 0 10px 10px 0" style="margin-right: 10px;">
+        <li class="nav-item" style="margin-right: 20px; margin-bottom: 10px">
+            <button type="button" class="btn btn-danger">Mua lại</button>
+        </li>
+        <li class="nav-item">
+            <button type="button" class="btn btn-outline-primary">Liên hệ người bán</button>
+        </li>
+    </ul>
+</div>
+
+
+</div>
+</tr>
+</div>
+</div>
+
+<!--Da huy-->
+<div class="tab-pane fade" id="da-huy" role="tabpanel" aria-labelledby="nav-contact-tab">
+    <div *ngIf="getNumberOfOrders() > 0; else emptyOrder">
+        <tr *ngFor="let order of orders">
+
+            <!-- 1 card -->
+            <div class="card" style="margin: 20px 120px 20px 120px; width: 750px;">
+                <!-- header  -->
+                <div class="card-body">
+                    <ul class="nav justify-content-end">
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#">Giao Hàng thành công</a>
+                        </li>
+                        <li class="nav-item">
+                            <p class="nav-link disabled">|</p>
+                        </li> -->
+                        <li class="nav-item">
+                            <p class="nav-link disabled">{{order.status}}</p>
+                        </li>
+                    </ul>
+                    <hr class="hr hr-blurry" />
+                </div>
+
+                <!-- detail order -->
+                <div class="container">
+                    <div class="row row-cols-3">
+                        <div class="col-8" style="margin-left: 50px;">
+                            <!-- ten san pham -->
+                            <p class="product-name">Mã đơn hàng: {{order.id}}</p>
+                            <!-- phan loai hang-->
+                            <ul class="nav justify-content-start sub-product-detail" style="margin-right: 10px;">
+                                <li class="nav-item" style="margin-right: 10px">
+                                    <p>Email: {{order.email}} </p>
+                                </li>
+
+                                <li class="nav-item">
+                                    <p>Ngày đặt: {{order.orderDate}} </p>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="col-2">
+                            <br>
+                            <br>
+                            <a class="nav-link" data-bs-toggle="collapse" href="#detail{{order.id}}"
+                                aria-expanded="false" aria-labelledby="heading" aria-controls="collapseExample"
+                                (click)="getOrderItem(order.id)">
+                                Chi tiết
+                            </a>
+
+                        </div>
+                    </div>
+                    <div class="collapse" id="detail{{order.id}}">
+        <tr *ngFor="let orderItem of orderItems">
+            <!-- 1 card -->
+            <div *ngIf="isSameOrderId(order.id, orderItem.orderId)" class="card" style="margin: 20px 0 20px 0;">
+                <!-- detail order -->
+                <div class="container">
+                    <div class="row row-cols-3">
+                        <div class="col-1">
+                            <img src={{orderItem.book.image}} width="100">
+                        </div>
+                        <div class="col-8" style="margin-left: 50px;">
+                            <!-- ten san pham -->
+                            <p class="product-name">{{orderItem.book.title}}</p>
+                            <!-- phan loai hang-->
+                            <ul class="nav justify-content-start sub-product-detail" style="margin-right: 10px;">
+                                <li class="nav-item" style="margin-right: 10px">
+                                    <p>Đơn giá: </p>
+                                </li>
+                                <li class="nav-item">
+                                    <p>{{orderItem.book.stringPrice}} ₫</p>
+                                </li>
+                            </ul>
+                            <!-- so luong-->
+                            <p class="sub-product-detail">x{{orderItem.quantity}}</p>
+                        </div>
+                        <div class="col-2">
+                            <br>
+                            <br>
+                            <p style="color: red">{{orderItem.sPrice}} ₫</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </tr>
+    </div>
+</div>
+<!-- footer -->
+<hr class="hr hr-blurry" />
+<div>
+    <ul class="nav justify-content-end" style="margin-right: 10px;">
+        <li class="nav-item" style="margin-right: 10px;">
+            <p>Tổng tiền: </p>
+        </li>
+        <li class="nav-item">
+            <div>
+                <p class="total-price">{{order.sTotalPrice}} ₫</p>
+            </div>
+        </li>
+    </ul>
+</div>
+
+
+<div>
+    <ul class="nav justify-content-end" style="margin: 0 10px 10px 0" style="margin-right: 10px;">
+        <li class="nav-item" style="margin-right: 20px; margin-bottom: 10px">
+            <button type="button" class="btn btn-danger">Mua lại</button>
+        </li>
+        <li class="nav-item">
+            <button type="button" class="btn btn-outline-primary">Liên hệ người bán</button>
+        </li>
+    </ul>
+</div>
+
+
+</div>
+</tr>
+</div>
+</div>
+
+<!--tab chưa có đơn hàng-->
+<ng-template #emptyOrder>
+    <div class="card align-items-center" style="margin: 20px 120px 20px 120px;">
+        <img src="https://ntlogistics.vn/tin-tuc/wp-content/uploads/2020/07/cancel-order-1-1024x1024.jpg" width="500">
+    </div>
+</ng-template>
+
+
+</div>

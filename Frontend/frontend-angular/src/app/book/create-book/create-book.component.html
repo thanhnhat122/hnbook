@@ -1,0 +1,77 @@
+<div class="container-fluid">
+    <h2 class="text-center" style="margin-top: 2%;"> Thêm sách </h2>
+  
+    <div class="container" style="padding-top: 2%; padding-bottom: 4%; padding-left: 20%; padding-right: 20%;">
+      <form (ngSubmit)="onSubmit()">
+        <div class="input-group mb-3">
+          <span class="input-group-text" style="width: 150px"> Id tác giả </span>
+          <input type="text" class="form-control" [(ngModel)]="book.authorId" name="authorId" id="authorId" placeholder="Nhập id tác giả">
+        </div>
+    
+        <div class="input-group mb-3">
+            <span class="input-group-text" style="width: 150px"> Id nhà xuất bản </span>
+            <input type="text" class="form-control" [(ngModel)]="book.publisherId" name="publisherId" id="publisherId" placeholder="Nhập id nhà xuất bản">
+          </div>
+        
+        <div class="input-group mb-3">
+            <span class="input-group-text" style="width: 150px"> Tựa </span>
+            <input type="text" class="form-control" [(ngModel)]="book.title" name="title" id="title" placeholder="Nhập tựa sách">
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" style="width: 150px"> ISBN </span>
+            <input type="text" class="form-control" [(ngModel)]="book.isbn" name="isbn" id="isbn" placeholder="Nhập isbn">
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" style="width: 150px"> Thể loại </span>
+            <input type="text" class="form-control" [(ngModel)]="book.genre" name="genre" id="genre" placeholder="Nhập thể loại">
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" style="width: 150px"> Loại bìa </span>
+            <input type="text" class="form-control" [(ngModel)]="book.type" name="type" id="type" placeholder="Nhập loại bìa">
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" style="width: 150px"> Năm xuất bản </span>
+            <input type="text" class="form-control" [(ngModel)]="book.publicationYear" name="publicationYear" id="publicationYear" placeholder="Nhập năm xuất bản">
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" style="width: 150px"> Giá </span>
+            <input type="text" class="form-control" [(ngModel)]="book.price" name="price" id="price" placeholder="Nhập giá">
+        </div>
+
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" style="width: 150px"> Số lượng còn lại </span>
+            <input type="text" class="form-control" [(ngModel)]="book.remain" name="remain" id="remain" placeholder="Nhập số lượng còn lại">
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" style="width: 150px"> Kích thước </span>
+            <input type="text" class="form-control" [(ngModel)]="book.size" name="size" id="size" placeholder="Nhập kích thước">
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" style="width: 150px"> Số trang </span>
+            <input type="text" class="form-control" [(ngModel)]="book.pageNumber" name="pageNumber" id="pageNumber" placeholder="Nhập số trang">
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" style="width: 150px"> Tải hình lên </span>
+            <input type="file" class="form-control" name="image" id="image" (change)="onFileSelected($event)" name="image">
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" style="width: 150px"> Mô tả </span>
+            <textarea class="form-control" rows="5" [(ngModel)]="book.description" name="description" id="description" placeholder="Nhập mô tả"></textarea>
+        </div>
+    
+        <div class="text-center" style="margin-top: 30px; margin-bottom: 40px;">
+          <button class="btn btn-success" type="submit" style="padding-top: 10px; padding-bottom: 10px; padding-left: 50px; padding-right: 50px;"> Thêm </button>
+        </div>
+      </form>
+    </div>
+</div>

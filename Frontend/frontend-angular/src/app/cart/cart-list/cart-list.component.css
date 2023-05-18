@@ -1,0 +1,8 @@
+.modal-content{
+  width: 650px;
+  background-color: azure;
+}
+#sumMoney{
+  font-size: 16pt;
+  color: rgb(237, 23, 23);
+}

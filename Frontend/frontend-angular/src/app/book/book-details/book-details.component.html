@@ -1,0 +1,55 @@
+<div class="container mt-3">
+  <h2 class="text-center"> Thông tin chi tiết sách </h2>
+
+  <h3 style="margin-top: 8px;"> {{book.title}} </h3>
+
+  <img src={{mainImage}} style="width:350px;height:350px; margin-top: 8px;">
+
+  <div style="margin-top: 8px;">
+      <label> <b> Tác giả: </b></label> {{book.author.lastName}} {{book.author.firstName}}
+  </div>
+
+  <div style="margin-top: 8px;">
+      <label> <b> Nhà xuất bản: </b></label> {{book.publisher.name}}
+  </div>
+
+  <div style="margin-top: 8px;">
+      <label> <b> Isbn: </b></label> {{book.isbn}}
+  </div>
+
+  <div style="margin-top: 8px;">
+      <label> <b> Thể loại: </b></label> {{book.genre}}
+  </div>
+
+  <div style="margin-top: 8px;">
+      <label> <b> Loại bìa: </b></label> {{book.type}}
+  </div>
+
+  <div style="margin-top: 8px;">
+      <label> <b> Năm xuất bản: </b></label> {{book.publicationYear}}
+  </div>
+
+  <div style="margin-top: 8px;">
+      <label> <b> Giá: </b></label> {{book.price}}
+  </div>
+
+  <div style="margin-top: 8px;">
+      <label> <b> Còn lại: </b></label> {{book.remain}}
+  </div>
+
+  <div style="margin-top: 8px;">
+      <label> <b> Đã bán: </b></label> {{book.sell}}
+  </div>
+
+  <div style="margin-top: 8px;">
+      <label> <b> Kích thước: </b></label> {{book.size}}
+  </div>
+
+  <div style="margin-top: 8px;">
+      <label> <b> Số trang: </b></label> {{book.pageNumber}}
+  </div>
+
+  <div style="margin-top: 8px; margin-bottom: 20px;">
+      <label> <b> Mô tả: </b></label> {{book.description}}
+  </div>
+</div>

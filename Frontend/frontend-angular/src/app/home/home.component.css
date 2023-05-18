@@ -1,0 +1,101 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css);
+
+.card-img-top {
+    max-height: 250px;
+    overflow: hidden;
+}
+
+.card-title {
+    font-size: 16px;
+    color: #000000;
+}
+
+/* .card-title:hover {
+    color: red;
+    cursor: pointer;
+} */
+
+.custom-background {
+    background-color: rgb(243, 243, 243); 
+    width: 100%; 
+    position: absolute; 
+    min-height: 100%; 
+    height: auto;
+  }
+
+.card {
+    width: 250px; 
+    height: 360px;
+    border-width: 1px;
+    border-color: rgb(243, 243, 243);
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.card:hover {
+    border-color: rgb(0, 85, 255);
+    filter: brightness(105%);
+}
+
+.currency {
+    color: rgb(254, 56, 52);
+}
+
+.text-secondary {
+    margin-top: 8px;
+    color: gray;
+}
+
+.rating {
+    color : orange;
+}
+
+.star {
+    font-size : 20px;
+}
+
+.nav-item {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.page-link {
+    cursor:pointer;
+}
+
+.multi-line {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.selector-book-category {
+    background-color: #F8EFBA;
+}
+
+.my-border {
+    border-style: solid;
+    margin: 10px 0px 10px 0px;
+    padding: 10px;
+
+}
+
+.form-rounded {
+    border-radius: 1rem;
+}
+
+.filter-margin {
+    margin-bottom: 3px;
+}
+
+.background-color {
+    /* background-color: #ecf0f1; */
+    background-color: #0d6efd;
+}
+
+.booktype-title {
+    font-weight: bold;
+    color: white;
+    font-size: 20px;
+}

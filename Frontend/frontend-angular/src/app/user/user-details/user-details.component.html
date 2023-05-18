@@ -1,0 +1,60 @@
+<div class="container mt-3">
+  <h2 class="text-center"> Thông tin chi tiết </h2>
+
+  <div class="form-group row" style="margin: 10px 0 10px 0">
+    <label class="col-sm-2 col-form-label"><b> Email: </b></label>
+    <div class="col-sm-10" style="margin-top: 5px;">
+      {{user.email}}
+    </div>
+  </div>
+
+  <div class="form-group row" style="margin: 10px 0 10px 0">
+    <label class="col-sm-2 col-form-label"><b> Tên: </b></label>
+    <div class="col-sm-10">
+      <input (keyup)="setFirstName($event)" type="text" class="form-control" id="lastName" aria-describedby="lastName"
+        value="{{firstName}}">
+    </div>
+  </div>
+
+  <div class="form-group row" style="margin: 10px 0 10px 0">
+    <label class="col-sm-2 col-form-label"><b> Họ: </b></label>
+    <div class="col-sm-10">
+      <input (keyup)="setLastName($event)" type="text" class="form-control" id="firstName" aria-describedby="firstName"
+        value="{{lastName}}">
+    </div>
+  </div>
+
+  <div class="form-group row" style="margin: 10px 0 10px 0">
+    <label class="col-sm-2 col-form-label"><b> Địa chỉ: </b></label>
+    <div class="col-sm-10">
+      <input (keyup)="setAddress($event)" type="text" class="form-control" id="address" aria-describedby="address"
+        value="{{address}}">
+    </div>
+  </div>
+
+  <div class="form-group row" style="margin: 10px 0 10px 0">
+    <label class="col-sm-2 col-form-label"><b> Tỉnh: </b></label>
+    <div class="col-sm-10">
+      <input (keyup)="setProvince($event)" type="text" class="form-control" id="province" aria-describedby="province"
+        value="{{province}}">
+    </div>
+  </div>
+
+  <div class="form-group row" style="margin: 10px 0 10px 0">
+    <label class="col-sm-2 col-form-label"><b> Số điện thoại:</b></label>
+    <div class="col-sm-10">
+      <input (keyup)="setPhone($event)" type="number" class="form-control" id="phone" aria-describedby="phone" maxlength="10"
+        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+        value="{{phone}}">
+    </div>
+  </div>
+
+  <div class="form-group row" style="margin: 20px 0 10px 0">
+    <label class="col-sm-2 col-form-label"></label>
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-primary" (click)="onSubmit()">Cập nhật</button>
+    </div>
+  </div>
+
+ 
+</div>
